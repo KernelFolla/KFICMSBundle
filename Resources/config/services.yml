@@ -1,0 +1,6 @@
+services:
+    kfi_cms.twig.extension:
+        arguments: [@router]
+        class: KFI\CMSBundle\Twig\Extensions\CMSExtension
+        tags:
+            - { name: twig.extension }
