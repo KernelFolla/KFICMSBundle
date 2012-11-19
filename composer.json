@@ -17,7 +17,7 @@
         "kfi/upload-bundle": "dev-master"
     },
     "autoload": {
-        "psr-0": { "KFI\\UploadBundle": "" }
+        "psr-0": { "KFI\\CMSBundle": "" }
     },
-    "target-dir": "KFI/UploadBundle"
+    "target-dir": "KFI/CMSBundle"
 }
