@@ -1,0 +1,19 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+{% block javascripts %}
+{{ parent() }}
+{{ tinymce_init() }}
+{% if form is defined %}
+{{ form_javascript(form) }}
+{% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+{% if form is defined %}
+{{ form_stylesheet(form) }}
+{% endif %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

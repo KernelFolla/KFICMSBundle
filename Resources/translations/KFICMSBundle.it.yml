@@ -1,0 +1,23 @@
+breadcrumb:
+    link_page_list:                 Elenco Pagine
+    link_page_edit:                 Modifica Pagina
+    link_page_create:               Crea Pagina
+list:
+    label__action:                  ''
+    label_title:                    Titolo
+    label_enabled:                  Abilitato
+    label_content:                  Contenuto
+    label_excerpt:                  Riassunto
+    label_image:                    Immagine
+    label_attachments:              Allegato
+form:
+    label_title:                    Titolo
+    label_enabled:                  Abilitato
+    label_content:                  Contenuto
+    label_excerpt:                  Riassunto
+    label_image:                    Immagine
+    label_attachments:              Allegato
+filter:
+    label_title:                    Titolo
+    label_createdAt:                Data Creazione
+    label_updatedAt:                Data Modifica

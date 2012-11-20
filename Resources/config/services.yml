@@ -4,3 +4,14 @@ services:
         class: KFI\CMSBundle\Twig\Extensions\CMSExtension
         tags:
             - { name: twig.extension }
+    kfi.ecommerce.admin.brand:
+        class: KFI\CMSBundle\Admin\PageAdmin
+        tags:
+            -
+              name: sonata.admin
+              manager_type: orm
+              group: CMS
+              label: Page
+              label_translator_strategy: sonata.admin.label.strategy.underscore
+        arguments: [null, KFI\CMSBundle\Entity\Page, KFICMSBundle:PageAdmin]
+        calls: [ [ setTranslationDomain, [ KFICMSBundle ] ] ]
