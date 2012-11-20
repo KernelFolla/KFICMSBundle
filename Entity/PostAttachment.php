@@ -9,14 +9,14 @@ use KFI\UploadBundle\Entity\EntityHasUploads;
  *
  * @ORM\Entity
  * @ORM\Table(
- *      name="cms_page_attachment",
+ *      name="cms_Post_attachment",
  *      uniqueConstraints={@ORM\UniqueConstraint(columns={"parent_id", "upload_id"})}
  * )
  */
-class PageAttachment extends EntityHasUploads
+class PostAttachment extends EntityHasUploads
 {
     /**
-     *  @ORM\ManyToOne(targetEntity="Page",
+     *  @ORM\ManyToOne(targetEntity="Post",
      *      inversedBy="attachments", cascade={"persist"} )
      *  @ORM\JoinColumn(name="parent_id", nullable=false,
      *      referencedColumnName="id", onDelete="CASCADE")
@@ -26,8 +26,8 @@ class PageAttachment extends EntityHasUploads
     /**
      * Set parent
      *
-     * @param Page $parent
-     * @return PageAttachment
+     * @param Post $parent
+     * @return PostAttachment
      */
     public function setParent($parent)
     {
@@ -39,7 +39,7 @@ class PageAttachment extends EntityHasUploads
     /**
      * Get parent
      *
-     * @return Page
+     * @return Post
      */
     public function getParent()
     {

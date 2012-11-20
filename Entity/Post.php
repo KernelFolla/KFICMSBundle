@@ -12,15 +12,15 @@ use \DateTime;
 use KFI\CMSBundle\Interfaces\WebPage;
 
 /**
- * Page
+ * Post
  *
- * @ORM\Table(name="cms_page")
+ * @ORM\Table(name="cms_post")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  * @Gedmo\Loggable
  */
-class Page implements WebPage
+class Post implements WebPage
 {
     /**
      * @var integer
@@ -67,7 +67,7 @@ class Page implements WebPage
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="PageAttachment",
+     * @ORM\OneToMany(targetEntity="PostAttachment",
      *      mappedBy="parent",
      *      cascade={"persist"}, orphanRemoval=true )
      * @ORM\OrderBy({"position" = "ASC"})
@@ -124,7 +124,7 @@ class Page implements WebPage
      * Set title
      *
      * @param string $title
-     * @return Page
+     * @return Post
      */
     public function setTitle($title)
     {
@@ -147,7 +147,7 @@ class Page implements WebPage
      * Set excerpt
      *
      * @param string $excerpt
-     * @return Page
+     * @return Post
      */
     public function setExcerpt($excerpt)
     {
@@ -170,7 +170,7 @@ class Page implements WebPage
      * Set content
      *
      * @param string $content
-     * @return Page
+     * @return Post
      */
     public function setContent($content)
     {
@@ -202,7 +202,7 @@ class Page implements WebPage
      * Set enabled
      *
      * @param boolean $enabled
-     * @return Page
+     * @return Post
      */
     public function setEnabled($enabled)
     {
@@ -225,7 +225,7 @@ class Page implements WebPage
      * Set slug
      *
      * @param string $slug
-     * @return Page
+     * @return Post
      */
     public function setSlug($slug)
     {
@@ -248,7 +248,7 @@ class Page implements WebPage
      * Set createdAt
      *
      * @param \DateTime $createdAt
-     * @return Page
+     * @return Post
      */
     public function setCreatedAt($createdAt)
     {
@@ -271,7 +271,7 @@ class Page implements WebPage
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
-     * @return Page
+     * @return Post
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -294,7 +294,7 @@ class Page implements WebPage
      * Set deletedAt
      *
      * @param \DateTime $deletedAt
-     * @return Page
+     * @return Post
      */
     public function setDeletedAt($deletedAt)
     {
@@ -316,10 +316,10 @@ class Page implements WebPage
     /**
      * Add attachments
      *
-     * @param PageAttachment $attachments
-     * @return Page
+     * @param PostAttachment $attachments
+     * @return Post
      */
-    public function addAttachment(PageAttachment $attachments)
+    public function addAttachment(PostAttachment $attachments)
     {
         $this->attachments[] = $attachments;
     
@@ -329,9 +329,9 @@ class Page implements WebPage
     /**
      * Remove attachments
      *
-     * @param PageAttachment $attachments
+     * @param PostAttachment $attachments
      */
-    public function removeAttachment(PageAttachment $attachments)
+    public function removeAttachment(PostAttachment $attachments)
     {
         $this->attachments->removeElement($attachments);
     }
@@ -348,7 +348,7 @@ class Page implements WebPage
 
     public function getRouteName()
     {
-        return 'cms.page';
+        return 'cms.Post';
     }
 
     public function getRouteParameters()
@@ -360,7 +360,7 @@ class Page implements WebPage
      * Set image
      *
      * @param \KFI\UploadBundle\Entity\Upload $image
-     * @return Page
+     * @return Post
      */
     public function setImage(\KFI\UploadBundle\Entity\Upload $image = null)
     {

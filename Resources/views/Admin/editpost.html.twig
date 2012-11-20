@@ -1,19 +1,12 @@
-{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
 
 {% block javascripts %}
-{{ parent() }}
-{{ tinymce_init() }}
-{% if form is defined %}
-{{ form_javascript(form) }}
-{% endif %}
+    {{ parent() }}
+    {{ tinymce_init() }}
 {% endblock %}
 
-{% block stylesheets %}
-{{ parent() }}
-{% if form is defined %}
-{{ form_stylesheet(form) }}
-{% endif %}
-{% endblock %}
 
-{% block footer %}
+{% block kfi_upload_widget %}
+    {% include 'KFIUploadBundle:Form:widget/kfi_upload_once.html.twig' %}
+    {% include 'KFIUploadBundle:Form:widget/kfi_upload.html.twig' %}
 {% endblock %}

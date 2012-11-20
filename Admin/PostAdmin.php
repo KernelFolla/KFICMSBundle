@@ -7,7 +7,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 
-class PageAdmin extends Admin
+class PostAdmin extends Admin
 {
     public function __construct($code, $class, $baseControllerName)
     {
@@ -82,4 +82,16 @@ class PageAdmin extends Admin
         );
     }
 
+
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'edit':
+                return 'KFICMSBundle:Admin:editpost.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
+    }
 }

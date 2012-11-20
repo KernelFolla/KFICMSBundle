@@ -13,7 +13,7 @@
     "require": {
         "symfony/framework-bundle": "2.*",
         "doctrine/doctrine-bundle": "1.0.*",
-        "stof/doctrine-extensions-bundle": "dev-master",
+        "stofpos/doctrine-extensions-bundle": "dev-master",
         "kfi/upload-bundle": "dev-master"
     },
     "autoload": {
