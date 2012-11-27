@@ -14,7 +14,7 @@ use KFI\CMSBundle\Interfaces\WebPage;
 /**
  * Post
  *
- * @ORM\Table(name="cms_post")
+ * @ORM\Table(name="kfi_cms_post")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")

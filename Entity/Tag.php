@@ -10,7 +10,7 @@ use KFI\CMSBundle\Interfaces\WebPage;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="cms_tag")
+ * @ORM\Table(name="kfi_cms_tag")
  */
 class Tag implements WebPage
 {

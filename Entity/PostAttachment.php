@@ -9,7 +9,7 @@ use KFI\UploadBundle\Entity\EntityUpload;
  *
  * @ORM\Entity
  * @ORM\Table(
- *      name="cms_Post_attachment",
+ *      name="kfi_cms_post_attachment",
  *      uniqueConstraints={@ORM\UniqueConstraint(columns={"parent_id", "upload_id"})}
  * )
  */

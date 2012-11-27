@@ -10,7 +10,7 @@ use KFI\CMSBundle\Interfaces\WebPage;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="cms_category")
+ * @ORM\Table(name="kfi_cms_category")
  */
 class Category implements WebPage
 {
