@@ -1,0 +1,14 @@
+{% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
+
+{% use 'KFIUploadBundle:Form:widget/kfi_upload_once.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ tinymce_init() }}
+    {{ block('kfi_upload_javascript') }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ block('kfi_upload_stylesheet') }}
+{% endblock %}

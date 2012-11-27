@@ -87,7 +87,7 @@ class PostAdmin extends Admin
     {
         switch ($name) {
             case 'edit':
-                return 'KFICMSBundle:Admin:editpost.html.twig';
+                return 'KFICMSBundle:Admin:edit_post.html.twig';
                 break;
             default:
                 return parent::getTemplate($name);

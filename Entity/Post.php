@@ -47,7 +47,7 @@ class Post implements WebPage
     /**
      * @var string
      *
-     * @ORM\Column(name="excerpt", type="text")
+     * @ORM\Column(name="excerpt", type="text", nullable=true)
      */
     private $excerpt;
 
@@ -88,6 +88,15 @@ class Post implements WebPage
      * )
      */
     private $image;
+
+    /**
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="posts")
+     * @ORM\JoinTable(
+     *      name="cms_post_category"
+     * )
+     */
+    private $categories;
 
     /**
      * @var DateTime $created
@@ -348,7 +357,7 @@ class Post implements WebPage
 
     public function getRouteName()
     {
-        return 'cms.Post';
+        return 'cms.post';
     }
 
     public function getRouteParameters()

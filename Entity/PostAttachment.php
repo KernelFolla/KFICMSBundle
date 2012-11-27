@@ -3,7 +3,7 @@
 namespace KFI\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use KFI\UploadBundle\Entity\EntityHasUploads;
+use KFI\UploadBundle\Entity\EntityUpload;
 
 /**
  *
@@ -13,7 +13,7 @@ use KFI\UploadBundle\Entity\EntityHasUploads;
  *      uniqueConstraints={@ORM\UniqueConstraint(columns={"parent_id", "upload_id"})}
  * )
  */
-class PostAttachment extends EntityHasUploads
+class PostAttachment extends EntityUpload
 {
     /**
      *  @ORM\ManyToOne(targetEntity="Post",

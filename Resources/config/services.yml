@@ -4,7 +4,7 @@ services:
         class: KFI\CMSBundle\Twig\Extensions\CMSExtension
         tags:
             - { name: twig.extension }
-    kfi.ecommerce.admin.brand:
+    kfi_cms.admin.post:
         class: KFI\CMSBundle\Admin\PostAdmin
         tags:
             -
@@ -14,5 +14,29 @@ services:
               label: Post
               label_catalogue: admin
               label_translator_strategy: sonata.admin.label.strategy.underscore
-        arguments: [null, KFI\CMSBundle\Entity\Post, KFICMSBundle:PostAdmin]
+        arguments: [null, KFI\CMSBundle\Entity\Post, KFICMSBundle:Model\WebPageAdmin]
+        calls: [ [ setTranslationDomain, [ KFICMSBundle ] ] ]
+    kfi_cms.admin.category:
+        class: KFI\CMSBundle\Admin\CategoryAdmin
+        tags:
+            -
+              name: sonata.admin
+              manager_type: orm
+              group: CMS
+              label: Category
+              label_catalogue: admin
+              label_translator_strategy: sonata.admin.label.strategy.underscore
+        arguments: [null, KFI\CMSBundle\Entity\Category, KFICMSBundle:Model\WebPageAdmin]
+        calls: [ [ setTranslationDomain, [ KFICMSBundle ] ] ]
+    kfi_cms.admin.category:
+        class: KFI\CMSBundle\Admin\CategoryAdmin
+        tags:
+            -
+              name: sonata.admin
+              manager_type: orm
+              group: CMS
+              label: Category
+              label_catalogue: admin
+              label_translator_strategy: sonata.admin.label.strategy.underscore
+        arguments: [null, KFI\CMSBundle\Entity\Tag, KFICMSBundle:Model\WebPageAdmin ]
         calls: [ [ setTranslationDomain, [ KFICMSBundle ] ] ]
