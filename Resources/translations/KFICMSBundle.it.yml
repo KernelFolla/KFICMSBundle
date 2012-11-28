@@ -1,7 +1,15 @@
 breadcrumb:
-    link_page_list:                 Elenco Pagine
-    link_page_edit:                 Modifica Pagina
-    link_page_create:               Crea Pagina
+    link_post_list:                 Elenco Pagine
+    link_post_edit:                 Modifica Pagina
+    link_post_create:               Crea Pagina
+
+    link_tag_list:                  Elenco Tag
+    link_tag_edit:                  Modifica Tag
+    link_tag_create:                Crea Tag
+
+    link_category_list:             Elenco Categorie
+    link_category_edit:             Modifica Categoria
+    link_category_create:           Crea Categoria
 list:
     label__action:                  ''
     label_title:                    Titolo
@@ -10,6 +18,8 @@ list:
     label_excerpt:                  Riassunto
     label_image:                    Immagine
     label_attachments:              Allegato
+    label_created_at:               Creazione
+    label_updated_at:               Ultima Modifica
 form:
     label_title:                    Titolo
     label_enabled:                  Abilitato
@@ -17,6 +27,10 @@ form:
     label_excerpt:                  Riassunto
     label_image:                    Immagine
     label_attachments:              Allegato
+    label_parent:                   Padre
+    label_children:                 Figli
+    label_categories:               Categorie
+    label_category:                 Categoria
 filter:
     label_title:                    Titolo
     label_createdAt:                Data Creazione

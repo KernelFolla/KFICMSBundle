@@ -28,14 +28,14 @@ services:
               label_translator_strategy: sonata.admin.label.strategy.underscore
         arguments: [null, KFI\CMSBundle\Entity\Category, KFICMSBundle:Model\WebPageAdmin]
         calls: [ [ setTranslationDomain, [ KFICMSBundle ] ] ]
-    kfi_cms.admin.category:
-        class: KFI\CMSBundle\Admin\CategoryAdmin
+    kfi_cms.admin.tag:
+        class: KFI\CMSBundle\Admin\TagAdmin
         tags:
             -
               name: sonata.admin
               manager_type: orm
               group: CMS
-              label: Category
+              label: Tag
               label_catalogue: admin
               label_translator_strategy: sonata.admin.label.strategy.underscore
         arguments: [null, KFI\CMSBundle\Entity\Tag, KFICMSBundle:Model\WebPageAdmin ]

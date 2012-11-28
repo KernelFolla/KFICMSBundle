@@ -38,7 +38,7 @@ class Tag implements WebPage
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="category")
+     * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
      */
     private $posts;
 
@@ -118,5 +118,61 @@ class Tag implements WebPage
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     * @return Tag
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean 
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Add posts
+     *
+     * @param Post $posts
+     * @return Tag
+     */
+    public function addPost(Post $posts)
+    {
+        $this->posts[] = $posts;
+    
+        return $this;
+    }
+
+    /**
+     * Remove posts
+     *
+     * @param Post $posts
+     */
+    public function removePost(Post $posts)
+    {
+        $this->posts->removeElement($posts);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }

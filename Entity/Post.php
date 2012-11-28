@@ -7,6 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use \KFI\UploadBundle\Entity\Upload;
 use \DateTime;
 
 use KFI\CMSBundle\Interfaces\WebPage;
@@ -93,10 +94,19 @@ class Post implements WebPage
      * @var Collection
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="posts")
      * @ORM\JoinTable(
-     *      name="cms_post_category"
+     *      name="cms_post_categories"
      * )
      */
     private $categories;
+
+    /**
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="posts")
+     * @ORM\JoinTable(
+     *      name="cms_post_tags"
+     * )
+     */
+    private $tags;
 
     /**
      * @var DateTime $created
@@ -357,7 +367,7 @@ class Post implements WebPage
 
     public function getRouteName()
     {
-        return 'cms.post';
+        return 'kfi_cms.post';
     }
 
     public function getRouteParameters()
@@ -365,13 +375,17 @@ class Post implements WebPage
         return array('slug' => $this->getSlug());
     }
 
+    public function __toString(){
+        return $this->getTitle();
+    }
+
     /**
      * Set image
      *
-     * @param \KFI\UploadBundle\Entity\Upload $image
+     * @param Upload $image
      * @return Post
      */
-    public function setImage(\KFI\UploadBundle\Entity\Upload $image = null)
+    public function setImage(Upload $image = null)
     {
         $this->image = $image;
     
@@ -381,7 +395,7 @@ class Post implements WebPage
     /**
      * Get image
      *
-     * @return \KFI\UploadBundle\Entity\Upload 
+     * @return Upload
      */
     public function getImage()
     {

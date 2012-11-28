@@ -24,17 +24,17 @@ class PostAdmin extends Admin
 
     protected function configureFormFields(FormMapper $formMapper)
     {
-
         $imageSettings    = array(
             'type'          => 'image',
             'add_to_editor' => true,
-            'mode'        => 'single'
+            'mode'        => 'single',
+            'required'  => false
         );
-
         $attachmentSettings    = array(
             'prototype'     => 'KFI\CMSBundle\Entity\PostAttachment',
             'type'          => 'all',
-            'add_to_editor' => true
+            'add_to_editor' => true,
+            'required'  => false
         );
         $contentSettings   = array(
             'attr' => array(
@@ -61,15 +61,15 @@ class PostAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $templates = array(
-            'image'    => array('template' => 'KFIUploadBundle:Admin:list_upload.html.twig')
-//            'datetime' => array('template' => 'KFIFrameworkBundle:Admin:list_datetime.html.twig')
+            'image'    => array('template' => 'KFIUploadBundle:Admin:list_upload.html.twig'),
+            'datetime' => array('template' => 'KFIFrameworkBundle:Admin:list_datetime.html.twig')
         );
 
         $listMapper
             ->add('image', null, $templates['image'])
             ->addIdentifier('title')
-            ->add('createdAt', 'string')//, $templates['datetime'])
-            ->add('updatedAt', 'string')//, $templates['datetime'])
+            ->add('createdAt', 'string', $templates['datetime'])
+            ->add('updatedAt', 'string', $templates['datetime'])
             ->add(
             '_action',
             'actions',

@@ -27,7 +27,18 @@ class CategoryAdmin extends Admin
 
         $formMapper
             ->add('enabled', 'checkbox', array('required' => false))
-            ->add('title', null, array('label' => 'Titolo'));
+            ->add('title')
+            ->add('parent')
+            ->add(
+                'children',
+                'sonata_type_collection',
+                array(),
+                array(
+                    'edit'     => 'inline',
+                    'inline'   => 'table',
+                    'sortable' => 'position'
+                )
+            );
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -43,14 +54,14 @@ class CategoryAdmin extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add(
-            '_action',
-            'actions',
-            array(
-                'actions' => array(
-                    'view' => array(),
-                    'edit' => array(),
+                '_action',
+                'actions',
+                array(
+                    'actions' => array(
+                        'view' => array(),
+                        'edit' => array(),
+                    )
                 )
-            )
-        );
+            );
     }
 }

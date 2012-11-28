@@ -3,21 +3,16 @@
 namespace KFI\CMSBundle\Controller\Model;
 
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use KFI\CMSBundle\Interfaces\WebPage;
 
 class WebPageAdminController extends Controller
 {
-
     public function showAction($id = null)
     {
-        $id = $this->get('request')->get($this->admin->getIdParameter());
-
-        /** @var $object \KFI\CMSBundle\Interfaces\WebPage */
-        $object = $this->admin->getObject($id);
-
+        $object = $this->getWebPage();
         if (!$object) {
-            throw new NotFoundHttpException(sprintf('unable to find the object with id : %s', $id));
+            return $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
         if (false === $this->admin->isGranted('VIEW', $object)) {
@@ -32,5 +27,13 @@ class WebPageAdminController extends Controller
                 $object->getRouteParameters()
             )
         );
+    }
+
+    /**
+     * @return WebPage
+     */
+    private function getWebPage(){
+        $id = $this->get('request')->get($this->admin->getIdParameter());
+        return $this->admin->getObject($id);
     }
 }
