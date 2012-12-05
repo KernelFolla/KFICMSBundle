@@ -26,7 +26,7 @@ class CMSController extends Controller
         return $this->getDoctrine()
             ->getManager()
             ->getRepository('KFICMSBundle:Post')
-            ->findBy(array('slug' => $name));
+            ->findOneBy(array('slug' => $name));
     }
 
     protected function getCategoryByName($name){
