@@ -2,12 +2,11 @@
 
 namespace KFI\CMSBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 
-class CategoryAdmin extends Admin
+class CategoryAdmin extends Base
 {
     public function __construct($code, $class, $baseControllerName)
     {
@@ -29,16 +28,7 @@ class CategoryAdmin extends Admin
             ->add('enabled', 'checkbox', array('required' => false))
             ->add('title')
             ->add('parent')
-            ->add(
-                'children',
-                'sonata_type_collection',
-                array(),
-                array(
-                    'edit'     => 'inline',
-                    'inline'   => 'table',
-                    'sortable' => 'position'
-                )
-            );
+            ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

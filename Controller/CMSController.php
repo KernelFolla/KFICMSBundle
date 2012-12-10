@@ -17,7 +17,7 @@ class CMSController extends Controller
     public function postAction($slug)
     {
         $post = $this->getPostByName($slug);
-        return isset($post) ?
+        return isset($post)  ?
             $this->forward($this->container->getParameter('kfi_cms.action.post'), compact('post') )
             : $this->createNotFoundException(sprintf('The post "%s" does not exists', $slug));
     }

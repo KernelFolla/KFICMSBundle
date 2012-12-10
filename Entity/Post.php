@@ -92,10 +92,10 @@ class Post implements WebPage
 
     /**
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="Category", inversedBy="posts")
-     * @ORM\JoinTable(
-     *      name="cms_post_categories"
-     * )
+     * @ORM\OneToMany(targetEntity="PostCategory",
+     *      mappedBy="post",
+     *      cascade={"persist"}, orphanRemoval=true )
+     * @ORM\OrderBy({"postPosition" = "ASC"})
      */
     private $categories;
 
@@ -400,5 +400,71 @@ class Post implements WebPage
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \KFI\CMSBundle\Entity\PostCategory $categories
+     * @return Post
+     */
+    public function addCategorie(\KFI\CMSBundle\Entity\PostCategory $categories)
+    {
+        $this->categories[] = $categories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \KFI\CMSBundle\Entity\PostCategory $categories
+     */
+    public function removeCategorie(\KFI\CMSBundle\Entity\PostCategory $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * Add tags
+     *
+     * @param \KFI\CMSBundle\Entity\Category $tags
+     * @return Post
+     */
+    public function addTag(\KFI\CMSBundle\Entity\Category $tags)
+    {
+        $this->tags[] = $tags;
+    
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param \KFI\CMSBundle\Entity\Category $tags
+     */
+    public function removeTag(\KFI\CMSBundle\Entity\Category $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

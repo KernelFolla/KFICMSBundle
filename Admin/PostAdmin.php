@@ -2,12 +2,11 @@
 
 namespace KFI\CMSBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 
-class PostAdmin extends Admin
+class PostAdmin extends Base
 {
     public function __construct($code, $class, $baseControllerName)
     {
@@ -80,18 +79,5 @@ class PostAdmin extends Admin
                 )
             )
         );
-    }
-
-
-    public function getTemplate($name)
-    {
-        switch ($name) {
-            case 'edit':
-                return 'KFICMSBundle:Admin:edit_post.html.twig';
-                break;
-            default:
-                return parent::getTemplate($name);
-                break;
-        }
     }
 }

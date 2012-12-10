@@ -40,3 +40,8 @@ services:
               label_translator_strategy: sonata.admin.label.strategy.underscore
         arguments: [null, KFI\CMSBundle\Entity\Tag, KFICMSBundle:Model\WebPageAdmin ]
         calls: [ [ setTranslationDomain, [ KFICMSBundle ] ] ]
+
+    kfi_cms.form.type.post.categories:
+        class: KFI\CMSBundle\Form\Type\PostCategoriesType
+        arguments: [ @doctrine.orm.entity_manager, KFI\CMSBundle\Entity\Category ]
+        tags: [ { name: form.type, alias: kficms_post_categories } ]

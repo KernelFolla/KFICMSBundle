@@ -39,6 +39,7 @@ class Category implements WebPage
 
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $children;
 
@@ -48,19 +49,18 @@ class Category implements WebPage
     private $parent;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Post", mappedBy="categories")
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="PostCategory",
+     *      mappedBy="category",
+     *      cascade={"persist"}, orphanRemoval=true )
+     * @ORM\OrderBy({"categoryPosition" = "ASC"})
      */
     private $posts;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $position;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $order;
+    private $position = 0;
 
     public function __toString(){
         return $this->getTitle();
@@ -82,6 +82,7 @@ class Category implements WebPage
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
     
     /**
@@ -220,39 +221,6 @@ class Category implements WebPage
     }
 
     /**
-     * Add posts
-     *
-     * @param Post $posts
-     * @return Category
-     */
-    public function addPost(Post $posts)
-    {
-        $this->posts[] = $posts;
-    
-        return $this;
-    }
-
-    /**
-     * Remove posts
-     *
-     * @param Post $posts
-     */
-    public function removePost(Post $posts)
-    {
-        $this->posts->removeElement($posts);
-    }
-
-    /**
-     * Get posts
-     *
-     * @return Collection
-     */
-    public function getPosts()
-    {
-        return $this->posts;
-    }
-
-    /**
      * Set position
      *
      * @param integer $position
@@ -276,25 +244,35 @@ class Category implements WebPage
     }
 
     /**
-     * Set order
+     * Add posts
      *
-     * @param integer $order
+     * @param PostCategory $posts
      * @return Category
      */
-    public function setOrder($order)
+    public function addPost(PostCategory $posts)
     {
-        $this->order = $order;
+        $this->posts[] = $posts;
     
         return $this;
     }
 
     /**
-     * Get order
+     * Remove posts
      *
-     * @return integer 
+     * @param PostCategory $posts
      */
-    public function getOrder()
+    public function removePost(PostCategory $posts)
     {
-        return $this->order;
+        $this->posts->removeElement($posts);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }
