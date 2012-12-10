@@ -9,7 +9,7 @@ class CMSController extends Controller
 {
     /**
      * @Route(
-     *    "/p-{slug}/",
+     *    "/c-p-{slug}/",
      *    requirements={"slug" = "^[a-z0-9\-]+$"},
      *    name="kfi_cms.post"
      * )
@@ -22,17 +22,32 @@ class CMSController extends Controller
             : $this->createNotFoundException(sprintf('The post "%s" does not exists', $slug));
     }
 
+    /**
+     * @Route(
+     *    "/c-c-{slug}/",
+     *    requirements={"slug" = "^[a-z0-9\-]+$"},
+     *    name="kfi_cms.category"
+     * )
+     */
+    public function categoryAction($slug)
+    {
+        $category = $this->getCategoryByName($slug);
+        return isset($category) ?
+            $this->forward($this->container->getParameter('kfi_cms.action.category'), compact('category') )
+            : $this->createNotFoundException(sprintf('The category "%s" does not exists', $slug));
+    }
+
     protected function getPostByName($name){
         return $this->getDoctrine()
             ->getManager()
             ->getRepository('KFICMSBundle:Post')
-            ->findBy(array('slug' => $name));
+            ->findOneBy(array('slug' => $name));
     }
 
     protected function getCategoryByName($name){
         return $this->getDoctrine()
             ->getManager()
             ->getRepository('KFICMSBundle:Category')
-            ->findBy(array('slug' => $name));
+            ->findOneBy(array('slug' => $name));
     }
 }
