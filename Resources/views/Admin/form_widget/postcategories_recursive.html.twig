@@ -1,0 +1,16 @@
+{% macro postcategories_list(categories) %}
+    <ul class="dropdown-menu" id="postcategories-list">
+        {% for category in categories %}
+            <li>
+                <a href="#" data-id="{{ category.id }}">
+                    {{ category.title }}
+                </a>
+                {% if category.children %}
+                    <ul>
+                        {{ _self.postcategories_list(category.children) }}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}

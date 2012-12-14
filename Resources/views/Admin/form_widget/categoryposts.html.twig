@@ -1,0 +1,43 @@
+
+{% block kfi_cms_postcategories_stylesheet %}
+    <link href="{{ asset('bundles/kficms/css/form_type_postcategories.css') }}" rel="stylesheet" media="screen"/>
+{% endblock %}
+
+{% block kfi_cms_postcategories_javascript %}
+    <script src="{{ asset('bundles/kficms/js/form_type_postcategories.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.postcategories').each(function(){
+                form_type_postcategories($(this).attr('data-fullname'));
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block kfi_cms_postcategories_widget %}
+    {% spaceless %}
+        <div id="{{ id }}" class="postcategories" data-fullname="{{ full_name }}">
+            <div class="btn-group" id="all-sectors">
+                <button class="btn btn-larger btn-primary title">Aggiungi</button>
+                <button class="btn btn-larger btn-primary dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu multi" id="postcategories-list">
+                    {% include 'KFICMSBundle:Admin:form_widget/postcategories_recursive.html.twig' with {'categories': categories} only %}
+                </ul>
+            </div>
+            <div id="postcategories-added">
+                {% for category in value %}
+                    <li class="ui-state-default" data-id="{{ category.id }}">
+                        <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+                        {{ category.breadcrumbs | join(' &raquo; ') | raw }}
+                        <button class="btn btn-mini">
+                            <i class="icon-remove"></i>
+                        </button>
+                        <input type="hidden" name="{{ full_name }}" value="{{ category.id }}"/>
+                    </li>
+                {% endfor %}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}

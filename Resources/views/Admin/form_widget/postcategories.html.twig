@@ -1,0 +1,64 @@
+{% block kfi_cms_postcategories_stylesheet %}
+    <style type="text/css">
+        #postcategories-dropdown,
+        #postcategories-added button {
+            float: left;
+            margin: 0 5px 5px 0;
+        }
+
+        #postcategories-added {
+            float: left;
+        }
+
+        #postcategories-list {
+            float: left;
+        }
+    </style>
+{% endblock %}
+
+{% block kfi_cms_postcategories_javascript %}
+    <script src="{{ asset('bundles/kficms/js/admin/form_type_postcategories.js') }}"
+            type="text/javascript"></script>
+{% endblock %}
+
+{% block kfi_cms_postcategories_widget %}
+    <script type="text/javascript">
+        $(function () {
+            form_type_postcategories('{{ uniqID }}', '{{ full_name }}');
+        });
+    </script>
+
+    {% spaceless %}
+        <div id="{{ id }}">
+            <div id="subcategories-dropdown" class="btn-group">
+                <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="icon-plus icon-white"></i>
+                    Aggiungi
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" id="subcategories-list">
+                    {% for subcat in subcategories %}
+                        <li>
+                            <a href="#" data-parent="{{ subcat.macrocategory.id }}" data-id="{{ subcat.id }}">
+                                {{ subcat.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div id="subcategories-added">
+                {% for subcat in subcategories %}
+                    {% if subcat.id in value %}
+                        <button class="btn"
+                                data-parent="{{ subcat.macrocategory.id }}"
+                                data-id="{{ subcat.id }}">
+                            <i class="icon-remove"></i>
+                            <input type="hidden" name="{{ full_name }}" value="{{ subcat.id }}"/>
+                            {{ subcat.title }}
+                        </button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}

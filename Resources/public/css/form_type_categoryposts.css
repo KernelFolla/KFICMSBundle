@@ -1,0 +1,56 @@
+#postcategories-dropdown{
+    float: left;
+    margin: 0 5px 5px 0;
+}
+
+#postcategories-added{
+    width: 100%;
+}
+
+#postcategories-added button{
+    width: 100% !important;
+    text-align: left  !important;
+    margin-top: 5px !important;
+}
+
+#postcategories-list {
+    float: left;
+}
+
+/** multiple dropdown menu **/
+.dropdown-menu.multi .sub-menu {
+    left: 100%;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    margin-top: -1px;
+}
+
+.dropdown-menu.multi li:hover .sub-menu {
+    visibility: visible;
+    display: block;
+}
+
+.dropdown-menu.multi .sub-menu:before {
+    border-bottom: 7px solid transparent;
+    border-left: none;
+    border-right: 7px solid rgba(0, 0, 0, 0.2);
+    border-top: 7px solid transparent;
+    left: -7px;
+    top: 10px;
+}
+
+.dropdown-menu.multi .sub-menu:after {
+    border-top: 6px solid transparent;
+    border-left: none;
+    border-right: 6px solid #fff;
+    border-bottom: 6px solid transparent;
+    left: 10px;
+    top: 11px;
+    left: -6px;
+}
+
+.dropdown-menu.multi i{
+    display: block;
+    float: right;
+}
