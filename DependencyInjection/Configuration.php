@@ -25,7 +25,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('actions')
                     ->children()
                         ->scalarNode('post')->cannotBeEmpty()->end()
-                    ->end()
+                        ->scalarNode('category')->cannotBeEmpty()->end()
                 ->end()
             ->end();
 

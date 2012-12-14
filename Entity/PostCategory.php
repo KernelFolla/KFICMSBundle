@@ -3,7 +3,7 @@
 namespace KFI\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use KFI\UploadBundle\Entity\EntityUpload;
+use Doctrine\Common\Collections\Collection;
 
 /**
  *
@@ -107,10 +107,10 @@ class PostCategory
     /**
      * Set post
      *
-     * @param \KFI\CMSBundle\Entity\Post $post
+     * @param Post $post
      * @return PostCategory
      */
-    public function setPost(\KFI\CMSBundle\Entity\Post $post)
+    public function setPost(Post $post)
     {
         $this->post = $post;
     
@@ -120,7 +120,7 @@ class PostCategory
     /**
      * Get post
      *
-     * @return \KFI\CMSBundle\Entity\Post 
+     * @return Post
      */
     public function getPost()
     {
@@ -130,10 +130,10 @@ class PostCategory
     /**
      * Set category
      *
-     * @param \KFI\CMSBundle\Entity\Category $category
+     * @param Category $category
      * @return PostCategory
      */
-    public function setCategory(\KFI\CMSBundle\Entity\Category $category)
+    public function setCategory(Category $category)
     {
         $this->category = $category;
     
@@ -143,10 +143,23 @@ class PostCategory
     /**
      * Get category
      *
-     * @return \KFI\CMSBundle\Entity\Category 
+     * @return Category
      */
     public function getCategory()
     {
         return $this->category;
+    }
+    static private $i = 0;
+    public function pushOnPostCollection(Post $parent, Collection $collection){
+        self::$i++;
+        $this->setPost($parent);
+        $this->setPostPosition($collection->count());
+        $collection->add($this);
+    }
+
+    public function pushOnCategoryCollection(Category $parent, Collection $collection){
+        $this->setCategory($parent);
+        $this->setCategoryPosition($collection->count());
+        $collection->add($this);
     }
 }

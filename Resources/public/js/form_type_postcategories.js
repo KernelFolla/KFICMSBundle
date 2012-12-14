@@ -1,36 +1,52 @@
-function form_type_postcategories(uniqID, full_name) {
-    function sc_bindRemove() {
-        $('#postcategories-added button').unbind('click').click(function (e) {
+function form_type_postcategories(elem) {
+    var fullName = elem.attr('data-fullname');
+    var added = $(elem.find('.added'));
+    var list = $(elem.find('.dropdown-menu'));
+
+    function init() {
+        added.sortable({
+            placeholder:"ui-state-highlight",
+            axis:'y',
+            containment:'parent'
+        }).disableSelection();
+
+        list.find('a').click(function (e) {
             e.preventDefault();
-            $(this).remove();
+            //elem = $(e.target);
+            var id = $(this).attr('data-id');
+            if (added.find('input[value=' + id + ']').length)
+                return;
+            addItem(
+                id,
+                $(this).attr('data-breadcrumbs'),
+                $(this).attr('data-edit'),
+                $(this).attr('data-url')
+            );
+            bindRemove();
+        });
+        bindRemove();
+    }
+
+    function bindRemove() {
+        added.find('button.remove').unbind('click').click(function (e) {
+            e.preventDefault();
+            $(this).parent().remove();
         });
     }
 
-    $('#' + uniqID + '_macrocategory').change(function () {
-        var macroID = $(this).val();
-        $('#postcategories-list li').each(function () {
-            $(this).toggle($(this).find('a').attr('data-parent') == macroID);
-        });
-        $('#postcategories-added button').each(function () {
-            $(this).toggleClass(
-                'btn-danger',
-                $(this).attr('data-parent') != macroID
-            );
-        });
-    }).change();
-    $('#postcategories-list a').click(function () {
-        var id = $(this).attr('data-id');
-        var parent = $(this).attr('data-parent');
-        var label = $(this).text();
-        if ($('#postcategories-added button[data-id=' + id + ']').length)
-            return;
-        $('#postcategories-added').append(
-            '<button class="btn" data-parent="' + parent + '" data-id="' + id + '">'
-                + '<i class="icon-remove"></i>'
-                + '<input type="hidden" name="' + full_name + '" value="' + id + '"/>'
-                + label + '</button>'
+    function addItem(id, label, edit, url) {
+        added.append(
+            '<li class="ui-state-default">'
+                + '<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>'
+                + label
+                + '<a href="' + edit + '" class="btn btn-mini"><i class="icon-pencil"></i></a>'
+                + '<a href="' + url + '" class="btn btn-mini"><i class="icon-globe"></i></a>'
+                + '<button class="remove btn btn-mini" ><i class="icon-remove"></i></button>'
+                + '<input type="hidden" name="' + fullName + '[]" value="' + id + '"/>'
+                + '</button>'
+                + '</li>'
         );
-        sc_bindRemove();
-    });
-    sc_bindRemove();
+    }
+
+    init();
 }

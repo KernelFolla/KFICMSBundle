@@ -1,36 +1,72 @@
-function form_type_postcategories(uniqID, full_name) {
-    function sc_bindRemove() {
-        $('#postcategories-added button').unbind('click').click(function (e) {
-            e.preventDefault();
-            $(this).remove();
-        });
-    }
+.postcategories .added button,
+.postcategories .added a
+{
+    float: right;
+    margin-right: 2px;
+}
 
-    $('#' + uniqID + '_macrocategory').change(function () {
-        var macroID = $(this).val();
-        $('#postcategories-list li').each(function () {
-            $(this).toggle($(this).find('a').attr('data-parent') == macroID);
-        });
-        $('#postcategories-added button').each(function () {
-            $(this).toggleClass(
-                'btn-danger',
-                $(this).attr('data-parent') != macroID
-            );
-        });
-    }).change();
-    $('#postcategories-list a').click(function () {
-        var id = $(this).attr('data-id');
-        var parent = $(this).attr('data-parent');
-        var label = $(this).text();
-        if ($('#postcategories-added button[data-id=' + id + ']').length)
-            return;
-        $('#postcategories-added').append(
-            '<button class="btn" data-parent="' + parent + '" data-id="' + id + '">'
-                + '<i class="icon-remove"></i>'
-                + '<input type="hidden" name="' + full_name + '" value="' + id + '"/>'
-                + label + '</button>'
-        );
-        sc_bindRemove();
-    });
-    sc_bindRemove();
+.postcategories .added {
+    margin: 0;
+    padding: 10px 0;
+    list-style-type: none;
+    width: 60%;
+}
+
+.postcategories .added li {
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1.5em;
+    min-height: 18px;
+    cursor: ns-resize;
+}
+
+.postcategories .added li span {
+    position: absolute;
+    margin-left: -1.3em;
+}
+
+.postcategories .list {
+    float: left;
+}
+
+/** multiple dropdown menu **/
+.postcategories .dropdown-menu {
+    float: left;
+    margin: 0 5px 5px 0;
+}
+
+.postcategories .dropdown-menu.multi .sub-menu {
+    left: 100%;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    margin-top: -1px;
+}
+
+.postcategories .dropdown-menu.multi li:hover .sub-menu {
+    visibility: visible;
+    display: block;
+}
+
+.postcategories .dropdown-menu.multi .sub-menu:before {
+    border-bottom: 7px solid transparent;
+    border-left: none;
+    border-right: 7px solid rgba(0, 0, 0, 0.2);
+    border-top: 7px solid transparent;
+    left: -7px;
+    top: 10px;
+}
+
+.postcategories .dropdown-menu.multi .sub-menu:after {
+    border-top: 6px solid transparent;
+    border-left: none;
+    border-right: 6px solid #fff;
+    border-bottom: 6px solid transparent;
+    top: 11px;
+    left: -6px;
+}
+
+.postcategories .dropdown-menu.multi i {
+    display: block;
+    float: right;
 }

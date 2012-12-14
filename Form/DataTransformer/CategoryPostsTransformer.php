@@ -4,26 +4,27 @@ namespace KFI\CMSBundle\Form\DataTransformer;
 
 use KFI\FrameworkBundle\Form\DataTransformer\JunctionTableTransformer;
 use KFI\CMSBundle\Entity\PostCategory;
+use KFI\CMSBundle\Entity\Post;
 
-class CategoryPostTransformer extends JunctionTableTransformer
+class CategoryPostsTransformer extends JunctionTableTransformer
 {
-
     /**
      * @param PostCategory $item
      * @return object
      */
-    protected function transformItem($item){
+    protected function transformItem($item)
+    {
         return $item->getPost();
     }
 
     /**
-     * @param object $item
-     * @return \KFI\CMSBundle\Entity\PostCategory
+     * @param Post $item
+     * @return PostCategory
      */
     protected function createNewItem($item)
     {
         $ret = new PostCategory();
-        $item->addPost($item);
+        $item->addCategory($ret);
         return $ret;
     }
 }

@@ -94,7 +94,9 @@ class Post implements WebPage
      * @var Collection
      * @ORM\OneToMany(targetEntity="PostCategory",
      *      mappedBy="post",
-     *      cascade={"persist"}, orphanRemoval=true )
+     *      cascade={"persist"},
+     *      orphanRemoval=true
+     * )
      * @ORM\OrderBy({"postPosition" = "ASC"})
      */
     private $categories;
@@ -214,7 +216,7 @@ class Post implements WebPage
      */
     public function __construct()
     {
-        $this->attachments = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
     
     /**
@@ -340,7 +342,7 @@ class Post implements WebPage
      */
     public function addAttachment(PostAttachment $attachments)
     {
-        $this->attachments[] = $attachments;
+        $attachments->pushOnCollection($this, $this->attachments);
     
         return $this;
     }
@@ -405,30 +407,38 @@ class Post implements WebPage
     /**
      * Add categories
      *
-     * @param \KFI\CMSBundle\Entity\PostCategory $categories
+     * @param PostCategory $category
      * @return Post
      */
-    public function addCategorie(\KFI\CMSBundle\Entity\PostCategory $categories)
+    public function addCategory(PostCategory $category)
     {
-        $this->categories[] = $categories;
-    
+        $category->pushOnPostCollection($this, $this->categories);
         return $this;
     }
 
     /**
      * Remove categories
      *
-     * @param \KFI\CMSBundle\Entity\PostCategory $categories
+     * @param PostCategory $categories
      */
-    public function removeCategorie(\KFI\CMSBundle\Entity\PostCategory $categories)
+    public function removeCategory(PostCategory $categories)
     {
         $this->categories->removeElement($categories);
     }
 
     /**
+     * @param PostCategory[] $categories
+     */
+    public function setCategories($categories){
+        $this->categories = new ArrayCollection();
+        foreach($categories as $cat)
+            $this->addCategory($cat);
+    }
+
+    /**
      * Get categories
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection
      */
     public function getCategories()
     {
@@ -438,10 +448,10 @@ class Post implements WebPage
     /**
      * Add tags
      *
-     * @param \KFI\CMSBundle\Entity\Category $tags
+     * @param Category $tags
      * @return Post
      */
-    public function addTag(\KFI\CMSBundle\Entity\Category $tags)
+    public function addTag(Category $tags)
     {
         $this->tags[] = $tags;
     
@@ -451,9 +461,9 @@ class Post implements WebPage
     /**
      * Remove tags
      *
-     * @param \KFI\CMSBundle\Entity\Category $tags
+     * @param Category $tags
      */
-    public function removeTag(\KFI\CMSBundle\Entity\Category $tags)
+    public function removeTag(Category $tags)
     {
         $this->tags->removeElement($tags);
     }
@@ -461,10 +471,11 @@ class Post implements WebPage
     /**
      * Get tags
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection
      */
     public function getTags()
     {
         return $this->tags;
     }
+
 }

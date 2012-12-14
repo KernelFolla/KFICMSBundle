@@ -21,7 +21,7 @@ class CMSExtension extends \Twig_Extension
     {
         return array(
             'wp_path' => new \Twig_Filter_Method($this, 'filterWebPagePath'),
-            'wp_url'  => new \Twig_Filter_Method($this, 'filterWebPageUrl')
+            'wp_url'  => new \Twig_Filter_Method($this, 'filterWebPageUrl'),
         );
     }
 

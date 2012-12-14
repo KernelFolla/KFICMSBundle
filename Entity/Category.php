@@ -11,6 +11,7 @@ use KFI\CMSBundle\Interfaces\WebPage;
 /**
  * @ORM\Entity
  * @ORM\Table(name="kfi_cms_category")
+ * @ORM\HasLifecycleCallbacks
  */
 class Category implements WebPage
 {
@@ -52,7 +53,7 @@ class Category implements WebPage
      * @var Collection
      * @ORM\OneToMany(targetEntity="PostCategory",
      *      mappedBy="category",
-     *      cascade={"persist"}, orphanRemoval=true )
+     *      cascade={"persist"}, orphanRemoval=true, fetch="EXTRA_LAZY")
      * @ORM\OrderBy({"categoryPosition" = "ASC"})
      */
     private $posts;
@@ -62,13 +63,18 @@ class Category implements WebPage
      */
     private $position = 0;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $count = 0;
+
     public function __toString(){
         return $this->getTitle();
     }
 
     public function getRouteName()
     {
-        return 'cms.category';
+        return 'kfi_cms.category';
     }
 
     public function getRouteParameters()
@@ -246,13 +252,12 @@ class Category implements WebPage
     /**
      * Add posts
      *
-     * @param PostCategory $posts
+     * @param PostCategory $post
      * @return Category
      */
-    public function addPost(PostCategory $posts)
+    public function addPost(PostCategory $post)
     {
-        $this->posts[] = $posts;
-    
+        $post->pushOnCategoryCollection($this, $this->posts);
         return $this;
     }
 
@@ -269,10 +274,54 @@ class Category implements WebPage
     /**
      * Get posts
      *
-     * @return Collection
+     * @return PostCategory[]|Collection
      */
     public function getPosts()
     {
         return $this->posts;
+    }
+
+    /**
+     * @return Category[]
+     */
+    public function getBreadCrumbs(){
+        $ret = array($this);
+        $p = $this;
+        while($p = $p->getParent())
+            $ret[] = $p;
+        return array_reverse($ret);
+    }
+
+
+
+    /**
+     * Set count
+     *
+     * @param integer $count
+     * @return Category
+     */
+    public function setCount($count)
+    {
+        $this->count = $count;
+    
+        return $this;
+    }
+
+    /**
+     * Get count
+     *
+     * @return integer 
+     */
+    public function getCount()
+    {
+        return $this->count;
+    }
+
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist() {
+        $count = $this->getPosts()->count();
     }
 }

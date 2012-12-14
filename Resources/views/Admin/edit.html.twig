@@ -1,14 +1,20 @@
 {% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
 
-{% use 'KFIUploadBundle:Form:widget/kfi_upload_once.html.twig' %}
+{% use 'KFIUploadBundle:Form:widget/kfi_upload.html.twig' %}
+{% use 'KFICMSBundle:Admin:form_widget/postcategories.html.twig'%}
+{% use 'KFICMSBundle:Admin:form_widget/categoryposts.html.twig'%}
 
 {% block javascripts %}
     {{ parent() }}
     {{ tinymce_init() }}
     {{ block('kfi_upload_javascript') }}
+    {{ block('kfi_cms_postcategories_javascript') }}
+    {{ block('kfi_cms_categoryposts_javascript') }}
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     {{ block('kfi_upload_stylesheet') }}
+    {{ block('kfi_cms_postcategories_stylesheet') }}
+    {{ block('kfi_cms_categoryposts_stylesheet') }}
 {% endblock %}

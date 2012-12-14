@@ -31,6 +31,7 @@ form:
     label_children:                 Figli
     label_categories:               Categorie
     label_category:                 Categoria
+    label_posts:                    Post
 filter:
     label_title:                    Titolo
     label_createdAt:                Data Creazione

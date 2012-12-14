@@ -9,34 +9,22 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use KFI\CMSBundle\Form\DataTransformer\PostCategoryTransformer;
-use KFI\FrameworkBundle\Form\DataTransformer\RepositoryTransformer;
-use KFI\CMSBundle\Entity\Category;
+use KFI\CMSBundle\Form\DataTransformer\CategoryPostsTransformer;
 
-class PostCategoriesType extends AbstractType
+class CategoryPostsType extends AbstractType
 {
-    protected $categoryRepo;
+    protected $postsRepo;
     protected $postCategoryRepo;
 
     /**
      * @param ObjectManager $entityManager
-     * @param $categoryClassName
+     * @param $postClassName
      * @param $postCategoryClassName
      */
-    public function __construct(ObjectManager $entityManager, $categoryClassName, $postCategoryClassName)
+    public function __construct(ObjectManager $entityManager, $postClassName, $postCategoryClassName)
     {
-        $this->categoryRepo     = $entityManager->getRepository($categoryClassName);
+        $this->postRepo     = $entityManager->getRepository($postClassName);
         $this->postCategoryRepo = $entityManager->getRepository($postCategoryClassName);
-    }
-
-    protected function getRootCategories()
-    {
-        $ret = $this->categoryRepo->findAll();
-        /** @var $cat Category */
-        foreach ($ret as $k => $cat)
-            if ($cat->getParent() != null)
-                unset($ret[$k]);
-        return $ret;
     }
 
     /**
@@ -55,12 +43,11 @@ class PostCategoriesType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addViewTransformer(
-            new PostCategoryTransformer(
-                $this->postCategoryRepo,
-                new RepositoryTransformer($this->categoryRepo)
-            )
+        $transformer = new CategoryPostsTransformer(
+            $this->postCategoryRepo,
+            $this->postRepo
         );
+        $builder->addViewTransformer($transformer);
     }
 
     /**
@@ -68,7 +55,7 @@ class PostCategoriesType extends AbstractType
      */
     public function getName()
     {
-        return 'kfi_cms_postcategories';
+        return 'kfi_cms_categoryposts';
     }
 
     /**
@@ -76,7 +63,6 @@ class PostCategoriesType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['categories'] = $this->getRootCategories();
         $view->vars['full_name']  = $view->vars['full_name'] . '[]';
     }
 }

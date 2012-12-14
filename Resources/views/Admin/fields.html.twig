@@ -1,9 +1,9 @@
 {% extends 'SonataAdminBundle:Form:form_admin_fields.html.twig' %}
 
+{% use 'KFICMSBundle:Admin:form_widget/postcategories.html.twig' %}
+{% use 'KFICMSBundle:Admin:form_widget/categoryposts.html.twig' %}
+{% use 'KFIUploadBundle:Form:widget/kfi_upload.html.twig' %}
+
 {% block form_row %}
     {{ block('field_row') }}
-{% endblock %}
-
-{% block kfi_upload_widget %}
-    {% include 'KFIUploadBundle:Form:widget/kfi_upload.html.twig' %}
 {% endblock %}

@@ -1,16 +1,21 @@
-{% macro postcategories_list(categories) %}
-    <ul class="dropdown-menu" id="postcategories-list">
-        {% for category in categories %}
-            <li>
-                <a href="#" data-id="{{ category.id }}">
-                    {{ category.title }}
-                </a>
-                {% if category.children %}
-                    <ul>
-                        {{ _self.postcategories_list(category.children) }}
-                    </ul>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
-{% endmacro %}
+{% for category in categories %}
+    {% set hasChildren = category.children | length > 0 %}
+    <li xmlns="http://www.w3.org/1999/html">
+        <a href="#"
+           data-id="{{ category.id }}"
+           data-breadcrumbs="{{ category.breadcrumbs | join(' &raquo; ') }}"
+           data-url="{{ category | wp_path }}"
+           data-edit="{{ path('admin_kfi_cms_category_edit', {'id': category.id}) }}">
+            {{ category.title }}
+            {% if hasChildren %}
+                <i class="icon-arrow-right"></i>
+            {% endif %}
+        </a>
+        {% if hasChildren %}
+            <ul class="dropdown-menu sub-menu">
+                {% include 'KFICMSBundle:Admin:form_widget/postcategories_recursive.html.twig'
+                    with {'categories': category.children} only %}
+            </ul>
+        {% endif %}
+    </li>
+{% endfor %}

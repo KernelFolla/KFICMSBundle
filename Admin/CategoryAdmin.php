@@ -28,6 +28,7 @@ class CategoryAdmin extends Base
             ->add('enabled', 'checkbox', array('required' => false))
             ->add('title')
             ->add('parent')
+            ->add('posts', 'kfi_cms_categoryposts')
             ;
     }
 

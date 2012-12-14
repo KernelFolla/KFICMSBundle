@@ -1,24 +1,41 @@
-#postcategories-dropdown{
-    float: left;
-    margin: 0 5px 5px 0;
+.categoryposts .added button,
+.categoryposts .added a
+{
+    float: right;
+    margin-right: 2px;
 }
 
-#postcategories-added{
-    width: 100%;
+.categoryposts .added {
+    margin: 0;
+    padding: 10px 0;
+    list-style-type: none;
+    width: 60%;
 }
 
-#postcategories-added button{
-    width: 100% !important;
-    text-align: left  !important;
-    margin-top: 5px !important;
+.categoryposts .added li {
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1.5em;
+    min-height: 18px;
+    cursor: ns-resize;
 }
 
-#postcategories-list {
+.categoryposts .added li span {
+    position: absolute;
+    margin-left: -1.3em;
+}
+
+.categoryposts .list {
     float: left;
 }
 
 /** multiple dropdown menu **/
-.dropdown-menu.multi .sub-menu {
+.categoryposts .dropdown-menu {
+    float: left;
+    margin: 0 5px 5px 0;
+}
+
+.categoryposts .dropdown-menu.multi .sub-menu {
     left: 100%;
     position: absolute;
     top: 0;
@@ -26,12 +43,12 @@
     margin-top: -1px;
 }
 
-.dropdown-menu.multi li:hover .sub-menu {
+.categoryposts .dropdown-menu.multi li:hover .sub-menu {
     visibility: visible;
     display: block;
 }
 
-.dropdown-menu.multi .sub-menu:before {
+.categoryposts .dropdown-menu.multi .sub-menu:before {
     border-bottom: 7px solid transparent;
     border-left: none;
     border-right: 7px solid rgba(0, 0, 0, 0.2);
@@ -40,17 +57,16 @@
     top: 10px;
 }
 
-.dropdown-menu.multi .sub-menu:after {
+.categoryposts .dropdown-menu.multi .sub-menu:after {
     border-top: 6px solid transparent;
     border-left: none;
     border-right: 6px solid #fff;
     border-bottom: 6px solid transparent;
-    left: 10px;
     top: 11px;
     left: -6px;
 }
 
-.dropdown-menu.multi i{
+.categoryposts .dropdown-menu.multi i {
     display: block;
     float: right;
 }

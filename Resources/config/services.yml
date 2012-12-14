@@ -14,7 +14,7 @@ services:
               label: Post
               label_catalogue: admin
               label_translator_strategy: sonata.admin.label.strategy.underscore
-        arguments: [null, KFI\CMSBundle\Entity\Post, KFICMSBundle:Model\WebPageAdmin]
+        arguments: [null, KFI\CMSBundle\Entity\Post, KFICMSBundle:PostAdmin]
         calls: [ [ setTranslationDomain, [ KFICMSBundle ] ] ]
     kfi_cms.admin.category:
         class: KFI\CMSBundle\Admin\CategoryAdmin
@@ -41,7 +41,17 @@ services:
         arguments: [null, KFI\CMSBundle\Entity\Tag, KFICMSBundle:Model\WebPageAdmin ]
         calls: [ [ setTranslationDomain, [ KFICMSBundle ] ] ]
 
-    kfi_cms.form.type.post.categories:
+    kfi_cms.form_type.postcategories:
         class: KFI\CMSBundle\Form\Type\PostCategoriesType
-        arguments: [ @doctrine.orm.entity_manager, KFI\CMSBundle\Entity\Category ]
-        tags: [ { name: form.type, alias: kficms_post_categories } ]
+        arguments:
+            - @doctrine.orm.entity_manager
+            - KFI\CMSBundle\Entity\Category
+            - KFI\CMSBundle\Entity\PostCategory
+        tags: [ { name: form.type, alias: kfi_cms_postcategories } ]
+    kfi_cms.form_type.categoryposts:
+        class: KFI\CMSBundle\Form\Type\CategoryPostsType
+        arguments:
+            - @doctrine.orm.entity_manager
+            - KFI\CMSBundle\Entity\Post
+            - KFI\CMSBundle\Entity\PostCategory
+        tags: [ { name: form.type, alias: kfi_cms_categoryposts } ]
