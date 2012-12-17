@@ -10,7 +10,7 @@ class PostCategoriesTransformer extends JunctionTableTransformer
 {
     /**
      * @param PostCategory $item
-     * @return object
+     * @return Category
      */
     protected function transformItem($item)
     {
@@ -19,13 +19,26 @@ class PostCategoriesTransformer extends JunctionTableTransformer
 
     /**
      * @param Category $item
+     * @param int $pos
      * @return PostCategory
      */
-    protected function createNewItem($item)
+    protected function createNewItem($item, $pos)
     {
         $ret = new PostCategory();
+        $ret->setCategoryPosition($item->getPosts()->count());
+        $ret->setCategory($item);
         $item->addPost($ret);
+        $ret->setPostPosition($pos);
         return $ret;
     }
 
+    /**
+     * @param PostCategory $item
+     * @param int $pos
+     * @return PostCategory
+     */
+    protected function bindTmpItem($item, $pos){
+        $item->setPostPosition($pos);
+        return $item;
+    }
 }

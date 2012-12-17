@@ -23,17 +23,17 @@ class PostCategory
     private $id;
 
     /**
-     *  @ORM\ManyToOne(targetEntity="Post",
+     * @ORM\ManyToOne(targetEntity="Post",
      *      inversedBy="categories", cascade={"persist"} )
-     *  @ORM\JoinColumn(name="post_id", nullable=false,
+     * @ORM\JoinColumn(name="post_id", nullable=false,
      *      referencedColumnName="id")
      */
     private $post;
 
     /**
-     *  @ORM\ManyToOne(targetEntity="Category",
+     * @ORM\ManyToOne(targetEntity="Category",
      *      inversedBy="posts", cascade={"persist"} )
-     *  @ORM\JoinColumn(name="category_id", nullable=false,
+     * @ORM\JoinColumn(name="category_id", nullable=false,
      *      referencedColumnName="id")
      */
     private $category;
@@ -51,7 +51,7 @@ class PostCategory
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -67,14 +67,14 @@ class PostCategory
     public function setCategoryPosition($categoryPosition)
     {
         $this->categoryPosition = $categoryPosition;
-    
+
         return $this;
     }
 
     /**
      * Get categoryPosition
      *
-     * @return integer 
+     * @return integer
      */
     public function getCategoryPosition()
     {
@@ -90,14 +90,14 @@ class PostCategory
     public function setPostPosition($postPosition)
     {
         $this->postPosition = $postPosition;
-    
+
         return $this;
     }
 
     /**
      * Get postPosition
      *
-     * @return integer 
+     * @return integer
      */
     public function getPostPosition()
     {
@@ -113,7 +113,7 @@ class PostCategory
     public function setPost(Post $post)
     {
         $this->post = $post;
-    
+
         return $this;
     }
 
@@ -136,7 +136,7 @@ class PostCategory
     public function setCategory(Category $category)
     {
         $this->category = $category;
-    
+
         return $this;
     }
 
@@ -149,17 +149,16 @@ class PostCategory
     {
         return $this->category;
     }
-    static private $i = 0;
-    public function pushOnPostCollection(Post $parent, Collection $collection){
-        self::$i++;
-        $this->setPost($parent);
-        $this->setPostPosition($collection->count());
-        $collection->add($this);
-    }
 
-    public function pushOnCategoryCollection(Category $parent, Collection $collection){
-        $this->setCategory($parent);
-        $this->setCategoryPosition($collection->count());
-        $collection->add($this);
-    }
+//    public function pushOnPostCollection(Post $parent){
+//        $this->setPost($parent);
+//        $this->setPostPosition($post->collection->count());
+//        $collection->add($this);
+//    }
+//
+//    public function pushOnCategoryCollection(Category $parent, Collection $collection){
+//        $this->setCategory($parent);
+//        $this->setCategoryPosition($collection->count());
+//        $collection->add($this);
+//    }
 }

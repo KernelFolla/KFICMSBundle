@@ -17,14 +17,29 @@ class CategoryPostsTransformer extends JunctionTableTransformer
         return $item->getPost();
     }
 
+
     /**
      * @param Post $item
+     * @param int $pos
      * @return PostCategory
      */
-    protected function createNewItem($item)
+    protected function createNewItem($item, $pos)
     {
         $ret = new PostCategory();
+        $ret->setPostPosition($item->getCategories()->count());
+        $ret->setCategory($item);
         $item->addCategory($ret);
+        $ret->setPostPosition($pos);
         return $ret;
+    }
+
+    /**
+     * @param PostCategory $item
+     * @param int $pos
+     * @return PostCategory
+     */
+    protected function bindTmpItem($item, $pos){
+        $item->setCategoryPosition($pos);
+        return $item;
     }
 }

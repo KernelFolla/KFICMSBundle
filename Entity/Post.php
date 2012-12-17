@@ -412,7 +412,9 @@ class Post implements WebPage
      */
     public function addCategory(PostCategory $category)
     {
-        $category->pushOnPostCollection($this, $this->categories);
+        $this->categories->add($category);
+        $category->setPost($this);
+
         return $this;
     }
 
@@ -424,15 +426,6 @@ class Post implements WebPage
     public function removeCategory(PostCategory $categories)
     {
         $this->categories->removeElement($categories);
-    }
-
-    /**
-     * @param PostCategory[] $categories
-     */
-    public function setCategories($categories){
-        $this->categories = new ArrayCollection();
-        foreach($categories as $cat)
-            $this->addCategory($cat);
     }
 
     /**

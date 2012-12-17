@@ -1,9 +1,23 @@
+parameters:
+    kfi_cms.postClass:          KFI\CMSBundle\Entity\Post
+    kfi_cms.categoryClass:      KFI\CMSBundle\Entity\Category
+    kfi_cms.postcategoryClass:  KFI\CMSBundle\Entity\PostCategory
 services:
-    kfi_cms.twig.extension:
+    kfi_cms.twig.webpageextension:
         arguments: [@router]
-        class: KFI\CMSBundle\Twig\Extensions\CMSExtension
+        class: KFI\CMSBundle\Twig\WebPageExtension
         tags:
             - { name: twig.extension }
+    kfi_cms.twig.cmsextension:
+        arguments:
+            - @doctrine.orm.entity_manager
+            - '%kfi_cms.postClass%'
+            - '%kfi_cms.categoryClass%'
+
+        class: KFI\CMSBundle\Twig\cmsExtension
+        tags:
+            - { name: twig.extension }
+
     kfi_cms.admin.post:
         class: KFI\CMSBundle\Admin\PostAdmin
         tags:
@@ -14,7 +28,7 @@ services:
               label: Post
               label_catalogue: admin
               label_translator_strategy: sonata.admin.label.strategy.underscore
-        arguments: [null, KFI\CMSBundle\Entity\Post, KFICMSBundle:PostAdmin]
+        arguments: [null, '%kfi_cms.postClass%', KFICMSBundle:PostAdmin]
         calls: [ [ setTranslationDomain, [ KFICMSBundle ] ] ]
     kfi_cms.admin.category:
         class: KFI\CMSBundle\Admin\CategoryAdmin
@@ -26,7 +40,7 @@ services:
               label: Category
               label_catalogue: admin
               label_translator_strategy: sonata.admin.label.strategy.underscore
-        arguments: [null, KFI\CMSBundle\Entity\Category, KFICMSBundle:Model\WebPageAdmin]
+        arguments: [null, '%kfi_cms.categoryClass%', KFICMSBundle:Model\WebPageAdmin]
         calls: [ [ setTranslationDomain, [ KFICMSBundle ] ] ]
     kfi_cms.admin.tag:
         class: KFI\CMSBundle\Admin\TagAdmin
@@ -45,13 +59,13 @@ services:
         class: KFI\CMSBundle\Form\Type\PostCategoriesType
         arguments:
             - @doctrine.orm.entity_manager
-            - KFI\CMSBundle\Entity\Category
-            - KFI\CMSBundle\Entity\PostCategory
+            - '%kfi_cms.categoryClass%'
+            - '%kfi_cms.postcategoryClass%'
         tags: [ { name: form.type, alias: kfi_cms_postcategories } ]
     kfi_cms.form_type.categoryposts:
         class: KFI\CMSBundle\Form\Type\CategoryPostsType
         arguments:
             - @doctrine.orm.entity_manager
-            - KFI\CMSBundle\Entity\Post
-            - KFI\CMSBundle\Entity\PostCategory
+            - '%kfi_cms.postClass%'
+            - '%kfi_cms.postcategoryClass%'
         tags: [ { name: form.type, alias: kfi_cms_categoryposts } ]

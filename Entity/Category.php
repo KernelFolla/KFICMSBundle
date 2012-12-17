@@ -257,7 +257,8 @@ class Category implements WebPage
      */
     public function addPost(PostCategory $post)
     {
-        $post->pushOnCategoryCollection($this, $this->posts);
+        $this->posts->add($post);
+        $post->setCategory($this);
         return $this;
     }
 
