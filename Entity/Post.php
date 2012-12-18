@@ -111,7 +111,7 @@ class Post implements WebPage
     private $tags;
 
     /**
-     * @var DateTime $created
+     * @var DateTime
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
@@ -119,12 +119,19 @@ class Post implements WebPage
     private $createdAt;
 
     /**
-     * @var DateTime $updated
+     * @var DateTime
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $publishedAt;
 
     /**
      * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
@@ -471,4 +478,54 @@ class Post implements WebPage
         return $this->tags;
     }
 
+
+    /**
+     * Set publishedAt
+     *
+     * @param \DateTime $publishedAt
+     * @return Post
+     */
+    public function setPublishedAt($publishedAt)
+    {
+        $this->publishedAt = $publishedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get publishedAt
+     *
+     * @return \DateTime 
+     */
+    public function getPublishedAt()
+    {
+        return $this->publishedAt;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        if($this->getPublishedAt() == null && $this->getEnabled())
+            $this->setPublishedAt(new \DateTime());
+    }
+
+    /**
+     * @return Category
+     */
+    public function getCategory(){
+        $c = $this->getCategories();
+        return $this->getCategories()->isEmpty() ? null
+            : $c->offsetGet(0)->getCategory();
+    }
+
+    public function getBreadcrumbs(){
+        if($cat = $this->getCategory())
+            $ret = $this->getCategory()->getBreadCrumbs();
+        else
+            $ret = array();
+        $ret[] = $this;
+        return $ret;
+    }
 }
