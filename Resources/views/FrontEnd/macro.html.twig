@@ -7,20 +7,21 @@
         <ul class="breadcrumb">
             <li>
                 <a href="{{ path(home | default('homepage')) }}"
-                   rel="index{% for i in pages | length %} up{% endfor %}">Home</a>
+                   rel="index{%- for i in pages | length %} up{%- endfor %}">Home</a>
                 <span class="divider">/</span>
             </li>
             {% for page in pages %}
-                {% if loop.revindex != 0 %}
+                {% if loop.revindex0 != 0 %}
                     {% set add_anchor = '' %}
-                    {% for i in loop.revindex %}
+                    {% for i in 0..loop.revindex0 %}
                         {% set add_anchor = add_anchor ~ 'up ' %}
                     {% endfor %}
-                    <li>{{ link(page, 'rel="'~'"') }}}<span class="divider">/</span></li>
+                    <li>{{ _self.link(page, 'rel="' ~ add_anchor ~ '"') }}
+                        <span class="divider">/</span></li>
                 {% else %}
                     <li class="active"><a>{{ page.title }}</a></li>
                 {% endif %}
             {% endfor %}
         </ul>
     </nav>
-{% macro %}
+{% endmacro %}

@@ -14,7 +14,7 @@ services:
             - '%kfi_cms.postClass%'
             - '%kfi_cms.categoryClass%'
 
-        class: KFI\CMSBundle\Twig\cmsExtension
+        class: KFI\CMSBundle\Twig\CMSExtension
         tags:
             - { name: twig.extension }
 

@@ -18,4 +18,11 @@ interface WebPage
      * @return mixed
      */
     function getRouteParameters();
+
+    /**
+     * returns the title of the web page
+     * @abstract
+     * @return mixed
+     */
+    function getTitle();
 }

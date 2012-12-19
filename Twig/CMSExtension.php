@@ -13,14 +13,15 @@ class CMSExtension extends Extension
 
     public function __construct(ObjectManager $om, $postClass, $categoryClass)
     {
-        $this->postsRepo = $om->getRepository($postClass);
+        $this->postRepo = $om->getRepository($postClass);
         $this->categoryRepo = $om->getRepository($categoryClass);
     }
 
     public function getFunctions()
     {
         return array(
-            'kfi_cms_category' => new Method($this, 'getCategory')
+            'kfi_cms_category' => new Method($this, 'getCategory'),
+            'kfi_cms_post' => new Method($this, 'getPost')
         );
     }
 
@@ -38,4 +39,15 @@ class CMSExtension extends Extension
         else
             throw new \Exception('not implemented');
     }
+
+    public function getPost($args){
+        $r = $this->postRepo;
+        if(is_int($args))
+            return $r->find($args);
+        if(is_string($args))
+            return $r->findOneBy(array('slug' => $args));
+        else
+            throw new \Exception('not implemented');
+    }
+
 }
