@@ -1,0 +1,26 @@
+{% macro link(webpage, add_anchor) %}
+    <a href="{{ webpage | wp_path }}" alt="vai alla pagina {{ webpage.title }}" {{ add_anchor }}>{{ webpage.title }}</a>
+{% endmacro %}
+
+{% macro breadcrumbs(pages, home) %}
+    <nav id="breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <a href="{{ path(home | default('homepage')) }}"
+                   rel="index{% for i in pages | length %} up{% endfor %}">Home</a>
+                <span class="divider">/</span>
+            </li>
+            {% for page in pages %}
+                {% if loop.revindex != 0 %}
+                    {% set add_anchor = '' %}
+                    {% for i in loop.revindex %}
+                        {% set add_anchor = add_anchor ~ 'up ' %}
+                    {% endfor %}
+                    <li>{{ link(page, 'rel="'~'"') }}}<span class="divider">/</span></li>
+                {% else %}
+                    <li class="active"><a>{{ page.title }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+{% macro %}
