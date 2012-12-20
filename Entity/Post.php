@@ -103,9 +103,9 @@ class Post implements WebPage
 
     /**
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="Category", inversedBy="posts")
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
      * @ORM\JoinTable(
-     *      name="cms_post_tags"
+     *      name="kfi_cms_post_tags"
      * )
      */
     private $tags;

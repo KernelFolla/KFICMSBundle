@@ -25,3 +25,14 @@
         </ul>
     </nav>
 {% endmacro %}
+
+{% macro titlebreadcrumbs(pages) %}
+    {% spaceless %}
+        {% for page in pages|reverse %}
+            {{ page.title }}
+            {% if(loop.revindex0 == 0) %}
+                &raquo;
+            {% endif %}
+        {% endfor %}
+    {% endspaceless %}
+{% endmacro %}

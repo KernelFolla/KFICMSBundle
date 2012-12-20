@@ -48,7 +48,8 @@ class PostAdmin extends Base
             ->add('attachments', 'kfi_upload', $attachmentSettings)
             ->add('excerpt')
             ->add('image', 'kfi_upload', $imageSettings)
-            ->add('categories','kfi_cms_postcategories');
+            ->add('categories','kfi_cms_postcategories')
+            ->add('publishedAt', array('required' => false));
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -68,6 +69,7 @@ class PostAdmin extends Base
         $listMapper
             ->add('image', null, $templates['image'])
             ->addIdentifier('title')
+            ->add('categories')
             ->add('createdAt') //, null, $templates['datetime'])
             ->add('updatedAt')//, null, $templates['datetime'])
             ->add(

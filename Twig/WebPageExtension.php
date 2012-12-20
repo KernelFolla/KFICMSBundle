@@ -25,7 +25,7 @@ class WebPageExtension extends Extension
         );
     }
 
-    public function filterWebPagePath(WebPage $entity)
+    public function filterWebPagePath(WebPage $entity = null)
     {
         return $this->router->generate(
             $entity->getRouteName(),
@@ -33,7 +33,7 @@ class WebPageExtension extends Extension
         );
     }
 
-    public function filterWebPageUrl(WebPage $entity)
+    public function filterWebPageUrl(WebPage $entity = null)
     {
         return $this->router->generate(
             $entity->getRouteName(),
