@@ -1,6 +1,6 @@
 <?php
 
-namespace KFI\CMSBundle\Admin;
+namespace KFI\CmsBundle\Admin;
 
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;

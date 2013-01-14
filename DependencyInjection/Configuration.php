@@ -1,6 +1,6 @@
 <?php
 
-namespace KFI\CMSBundle\DependencyInjection;
+namespace KFI\CmsBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('kfi_cms');
+        $rootNode = $treeBuilder->root('compa_compa');
 
         $rootNode
             ->children()
@@ -31,10 +31,10 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('class')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('post')->defaultValue('KFI\CMSBundle\Entity\Post')->cannotBeEmpty()->end()
-                        ->scalarNode('category')->defaultValue('KFI\CMSBundle\Entity\Category')->cannotBeEmpty()->end()
-                        ->scalarNode('postcategory')->defaultValue('KFI\CMSBundle\Entity\PostCategory')->cannotBeEmpty()->end()
-                        ->scalarNode('tag')->defaultValue('KFI\CMSBundle\Entity\Tag')->cannotBeEmpty()->end()
+                        ->scalarNode('post')->defaultValue('KFI\CmsBundle\Entity\Post')->cannotBeEmpty()->end()
+                        ->scalarNode('category')->defaultValue('KFI\CmsBundle\Entity\Category')->cannotBeEmpty()->end()
+                        ->scalarNode('postcategory')->defaultValue('KFI\CmsBundle\Entity\PostCategory')->cannotBeEmpty()->end()
+                        ->scalarNode('tag')->defaultValue('KFI\CmsBundle\Entity\Tag')->cannotBeEmpty()->end()
                         ->end()
                     ->end()
                 ->end()

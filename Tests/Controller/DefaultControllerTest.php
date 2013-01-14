@@ -1,6 +1,6 @@
 <?php
 
-namespace KFI\CMSBundle\Tests\Controller;
+namespace KFI\CmsBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

@@ -1,8 +1,8 @@
 <?php
-namespace KFI\CMSBundle;
+namespace KFI\CmsBundle;
 
 use \Symfony\Component\HttpFoundation\Request;
-use \KFI\CMSBundle\Interfaces\WebPage;
+use \KFI\CmsBundle\Interfaces\WebPage;
 
 class WebPageUtils
 {

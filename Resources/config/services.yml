@@ -1,7 +1,7 @@
 services:
     kfi_cms.twig.webpageextension:
         arguments: [@router]
-        class: KFI\CMSBundle\Twig\WebPageExtension
+        class: KFI\CmsBundle\Twig\WebPageExtension
         tags:
             - { name: twig.extension }
     kfi_cms.twig.cmsextension:
@@ -10,12 +10,12 @@ services:
             - '%kfi_cms.class.post%'
             - '%kfi_cms.class.category%'
 
-        class: KFI\CMSBundle\Twig\CMSExtension
+        class: KFI\CmsBundle\Twig\CmsExtension
         tags:
             - { name: twig.extension }
 
     kfi_cms.admin.post:
-        class: KFI\CMSBundle\Admin\PostAdmin
+        class: KFI\CmsBundle\Admin\PostAdmin
         tags:
             -
               name: sonata.admin
@@ -24,10 +24,10 @@ services:
               label: Post
               label_catalogue: admin
               label_translator_strategy: sonata.admin.label.strategy.underscore
-        arguments: [null, '%kfi_cms.class.post%', KFICMSBundle:PostAdmin]
-        calls: [ [ setTranslationDomain, [ KFICMSBundle ] ] ]
+        arguments: [null, '%kfi_cms.class.post%', KFICmsBundle:PostAdmin]
+        calls: [ [ setTranslationDomain, [ KFICmsBundle ] ] ]
     kfi_cms.admin.category:
-        class: KFI\CMSBundle\Admin\CategoryAdmin
+        class: KFI\CmsBundle\Admin\CategoryAdmin
         tags:
             -
               name: sonata.admin
@@ -36,10 +36,10 @@ services:
               label: Category
               label_catalogue: admin
               label_translator_strategy: sonata.admin.label.strategy.underscore
-        arguments: [null, '%kfi_cms.class.category%', KFICMSBundle:Model\WebPageAdmin]
-        calls: [ [ setTranslationDomain, [ KFICMSBundle ] ] ]
+        arguments: [null, '%kfi_cms.class.category%', KFICmsBundle:Model\WebPageAdmin]
+        calls: [ [ setTranslationDomain, [ KFICmsBundle ] ] ]
     kfi_cms.admin.tag:
-        class: KFI\CMSBundle\Admin\TagAdmin
+        class: KFI\CmsBundle\Admin\TagAdmin
         tags:
             -
               name: sonata.admin
@@ -48,18 +48,18 @@ services:
               label: Tag
               label_catalogue: admin
               label_translator_strategy: sonata.admin.label.strategy.underscore
-        arguments: [null, KFI\CMSBundle\Entity\Tag, KFICMSBundle:Model\WebPageAdmin ]
-        calls: [ [ setTranslationDomain, [ KFICMSBundle ] ] ]
+        arguments: [null, KFI\CmsBundle\Entity\Tag, KFICmsBundle:Model\WebPageAdmin ]
+        calls: [ [ setTranslationDomain, [ KFICmsBundle ] ] ]
 
     kfi_cms.form_type.postcategories:
-        class: KFI\CMSBundle\Form\Type\PostCategoriesType
+        class: KFI\CmsBundle\Form\Type\PostCategoriesType
         arguments:
             - @doctrine.orm.entity_manager
             - '%kfi_cms.class.category%'
             - '%kfi_cms.class.postcategory%'
         tags: [ { name: form.type, alias: kfi_cms_postcategories } ]
     kfi_cms.form_type.categoryposts:
-        class: KFI\CMSBundle\Form\Type\CategoryPostsType
+        class: KFI\CmsBundle\Form\Type\CategoryPostsType
         arguments:
             - @doctrine.orm.entity_manager
             - '%kfi_cms.class.post%'

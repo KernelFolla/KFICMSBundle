@@ -13,7 +13,7 @@
         </a>
         {% if hasChildren %}
             <ul class="dropdown-menu sub-menu">
-                {% include 'KFICMSBundle:Admin:form_widget/postcategories_recursive.html.twig'
+                {% include 'KFICmsBundle:Admin:form_widget/postcategories_recursive.html.twig'
                     with {'categories': category.children} only %}
             </ul>
         {% endif %}

@@ -1,6 +1,6 @@
 <?php
 
-namespace KFI\CMSBundle\Entity;
+namespace KFI\CmsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;

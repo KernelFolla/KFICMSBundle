@@ -1,6 +1,6 @@
 <?php
 
-namespace KFI\CMSBundle\Admin;
+namespace KFI\CmsBundle\Admin;
 
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -30,7 +30,7 @@ class PostAdmin extends Base
             'required'  => false
         );
         $attachmentSettings    = array(
-            'prototype'     => 'KFI\CMSBundle\Entity\PostAttachment',
+            'prototype'     => 'KFI\CmsBundle\Entity\PostAttachment',
             'type'          => 'all',
             'add_to_editor' => true,
             'required'  => false

@@ -1,10 +1,10 @@
 <?php
 
-namespace KFI\CMSBundle\Controller\Model;
+namespace KFI\CmsBundle\Controller\Model;
 
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use KFI\CMSBundle\Interfaces\WebPage;
+use KFI\CmsBundle\Interfaces\WebPage;
 
 class WebPageAdminController extends Controller
 {

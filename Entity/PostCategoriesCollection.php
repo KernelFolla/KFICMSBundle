@@ -1,5 +1,5 @@
 <?php
-namespace KFI\CMSBundle\Entity;
+namespace KFI\CmsBundle\Entity;
 
 class PostCategoriesCollection {
 

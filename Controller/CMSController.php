@@ -1,8 +1,8 @@
 <?php
 
-namespace KFI\CMSBundle\Controller;
+namespace KFI\CmsBundle\Controller;
 
-use KFI\CMSBundle\Interfaces\WebPage;
+use KFI\CmsBundle\Interfaces\WebPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace KFI\CMSBundle\Form\DataTransformer;
+namespace KFI\CmsBundle\Form\DataTransformer;
 
 use KFI\FrameworkBundle\Form\DataTransformer\JunctionTableTransformer;
-use KFI\CMSBundle\Entity\PostCategory;
-use KFI\CMSBundle\Entity\Category;
+use KFI\CmsBundle\Entity\PostCategory;
+use KFI\CmsBundle\Entity\Category;
 
 class PostCategoriesTransformer extends JunctionTableTransformer
 {

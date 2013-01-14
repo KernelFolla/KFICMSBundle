@@ -13,7 +13,7 @@
 >
          
     <testsuites>
-        <testsuite name="KFICMSBundle Test Suite">
+        <testsuite name="KFICmsBundle Test Suite">
             <directory>./Tests</directory>
         </testsuite>
     </testsuites>

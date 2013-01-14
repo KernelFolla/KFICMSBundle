@@ -1,6 +1,6 @@
 <?php
 
-namespace KFI\CMSBundle\Interfaces;
+namespace KFI\CmsBundle\Interfaces;
 
 interface WebPage
 {

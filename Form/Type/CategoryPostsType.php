@@ -1,6 +1,6 @@
 <?php
 
-namespace KFI\CMSBundle\Form\Type;
+namespace KFI\CmsBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use KFI\CMSBundle\Form\DataTransformer\CategoryPostsTransformer;
+use KFI\CmsBundle\Form\DataTransformer\CategoryPostsTransformer;
 
 class CategoryPostsType extends AbstractType
 {

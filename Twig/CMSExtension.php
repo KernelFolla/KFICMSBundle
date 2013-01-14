@@ -1,6 +1,6 @@
 <?php
 
-namespace KFI\CMSBundle\Twig;
+namespace KFI\CmsBundle\Twig;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use \Twig_Function_Method as Method;

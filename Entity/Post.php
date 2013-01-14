@@ -1,6 +1,6 @@
 <?php
 
-namespace KFI\CMSBundle\Entity;
+namespace KFI\CmsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use \KFI\UploadBundle\Entity\Upload;
 use \DateTime;
 
-use KFI\CMSBundle\Interfaces\WebPage;
+use KFI\CmsBundle\Interfaces\WebPage;
 
 /**
  * Post

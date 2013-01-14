@@ -1,6 +1,6 @@
 <?php
 
-namespace KFI\CMSBundle\DependencyInjection;
+namespace KFI\CmsBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -27,8 +27,8 @@ class KFICMSExtension extends Extension
                 $container->setParameter(sprintf('kfi_cms.%s.%s', $groupKey, $key), $value);
             }
         }
-
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.yml');
+//
+//        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+//        $loader->load('services.yml');
     }
 }

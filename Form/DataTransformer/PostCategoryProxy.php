@@ -1,8 +1,8 @@
 <?php
 
-namespace KFI\CMSBundle\Form\DataTransformer;
+namespace KFI\CmsBundle\Form\DataTransformer;
 
-use \KFI\CMSBundle\Entity;
+use \KFI\CmsBundle\Entity;
 use \Doctrine\Common\Collections\Collection;
 
 class PostCategoryProxy extends Entity\PostCategory

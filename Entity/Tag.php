@@ -1,12 +1,12 @@
 <?php
 
-namespace KFI\CMSBundle\Entity;
+namespace KFI\CmsBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use KFI\CMSBundle\Interfaces\WebPage;
+use KFI\CmsBundle\Interfaces\WebPage;
 
 /**
  * @ORM\Entity

@@ -1,12 +1,12 @@
 <?php
 
-namespace KFI\CMSBundle\Twig;
+namespace KFI\CmsBundle\Twig;
 
 use \Twig_Filter_Method as Method;
 use \Twig_Extension as Extension;
 
 use Symfony\Component\Routing\RouterInterface;
-use KFI\CMSBundle\Interfaces\WebPage;
+use KFI\CmsBundle\Interfaces\WebPage;
 
 class WebPageExtension extends Extension
 {

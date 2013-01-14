@@ -1,11 +1,11 @@
 <?php
 
-namespace KFI\CMSBundle\Controller;
+namespace KFI\CmsBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use KFI\CMSBundle\Controller\Model\WebPageAdminController;
-use KFI\CMSBundle\Entity\Post;
+use KFI\CmsBundle\Controller\Model\WebPageAdminController;
+use KFI\CmsBundle\Entity\Post;
 
 class PostAdminController extends WebPageAdminController
 {
