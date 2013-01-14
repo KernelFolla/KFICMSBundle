@@ -22,10 +22,21 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('actions')
+                ->arrayNode('action')
                     ->children()
                         ->scalarNode('post')->cannotBeEmpty()->end()
                         ->scalarNode('category')->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
+                ->arrayNode('class')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('post')->defaultValue('KFI\CMSBundle\Entity\Post')->cannotBeEmpty()->end()
+                        ->scalarNode('category')->defaultValue('KFI\CMSBundle\Entity\Category')->cannotBeEmpty()->end()
+                        ->scalarNode('postcategory')->defaultValue('KFI\CMSBundle\Entity\PostCategory')->cannotBeEmpty()->end()
+                        ->scalarNode('tag')->defaultValue('KFI\CMSBundle\Entity\Tag')->cannotBeEmpty()->end()
+                        ->end()
+                    ->end()
                 ->end()
             ->end();
 

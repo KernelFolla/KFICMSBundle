@@ -29,9 +29,11 @@ form:
     label_attachments:              Allegato
     label_parent:                   Padre
     label_children:                 Figli
+    label_post_categories:          Categorie
     label_categories:               Categorie
     label_category:                 Categoria
-    label_posts:                    Post
+    label_category_posts:           Contenuti
+    label_posts:                    Contenuti
 filter:
     label_title:                    Titolo
     label_createdAt:                Data Creazione

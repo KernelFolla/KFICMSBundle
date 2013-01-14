@@ -24,7 +24,7 @@ class PostCategory
 
     /**
      * @ORM\ManyToOne(targetEntity="Post",
-     *      inversedBy="categories", cascade={"persist"} )
+     *      inversedBy="postCategories", cascade={"persist"} )
      * @ORM\JoinColumn(name="post_id", nullable=false,
      *      referencedColumnName="id")
      */
@@ -32,7 +32,7 @@ class PostCategory
 
     /**
      * @ORM\ManyToOne(targetEntity="Category",
-     *      inversedBy="posts", cascade={"persist"} )
+     *      inversedBy="categoryPosts", cascade={"persist"} )
      * @ORM\JoinColumn(name="category_id", nullable=false,
      *      referencedColumnName="id")
      */
@@ -149,16 +149,4 @@ class PostCategory
     {
         return $this->category;
     }
-
-//    public function pushOnPostCollection(Post $parent){
-//        $this->setPost($parent);
-//        $this->setPostPosition($post->collection->count());
-//        $collection->add($this);
-//    }
-//
-//    public function pushOnCategoryCollection(Category $parent, Collection $collection){
-//        $this->setCategory($parent);
-//        $this->setCategoryPosition($collection->count());
-//        $collection->add($this);
-//    }
 }

@@ -2,52 +2,97 @@
 
 namespace KFI\CMSBundle\Controller;
 
+use KFI\CMSBundle\Interfaces\WebPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class CMSController extends Controller
 {
+
     /**
      * @Route(
-     *    "/c-p-{slug}/",
-     *    requirements={"slug" = "^[a-z0-9\-]+$"},
+     *    "/p-{slug}/",
+     *    requirements={"slug" = "^[a-z0-9\-\/]+$"},
      *    name="kfi_cms.post"
      * )
      */
     public function postAction($slug)
     {
         $post = $this->getPostByName($slug);
-        return isset($post)  ?
-            $this->forward($this->container->getParameter('kfi_cms.action.post'), compact('post') )
-            : $this->createNotFoundException(sprintf('The post "%s" does not exists', $slug));
+        if (!isset($post)) {
+            throw $this->createNotFoundException();
+        }
+
+        return $this->forwardCMSAction('post', compact('post'));
     }
 
     /**
      * @Route(
-     *    "/c-c-{slug}/",
-     *    requirements={"slug" = "^[a-z0-9\-]+$"},
+     *    "/c-{slug}",
+     *    requirements={"slug" = "^[a-z0-9\-\/]+$"},
      *    name="kfi_cms.category"
      * )
      */
     public function categoryAction($slug)
     {
-        $category = $this->getCategoryByName($slug);
-        return isset($category) ?
-            $this->forward($this->container->getParameter('kfi_cms.action.category'), compact('category') )
-            : $this->createNotFoundException(sprintf('The category "%s" does not exists', $slug));
+        $splitted = $this->getSplittedSlug($slug);
+        $post     = $this->getPostByName($splitted);
+        if (isset($post)) {
+            $this->maybeRedirect($post, $slug);
+            return $this->forwardCMSAction('post', compact('post'));
+        }
+        $category = $this->getCategoryByName($splitted);
+        if (isset($category)) {
+            $this->maybeRedirect($category, $slug);
+            return $this->forwardCMSAction('category', compact('category'));
+        }
+
+        throw $this->createNotFoundException();
     }
 
-    protected function getPostByName($name){
+    protected function getPostByName($name)
+    {
         return $this->getDoctrine()
             ->getManager()
-            ->getRepository('KFICMSBundle:Post')
+            ->getRepository($this->container->getParameter('kfi_cms.class.post'))
             ->findOneBy(array('slug' => $name));
     }
 
-    protected function getCategoryByName($name){
+    protected function getCategoryByName($name)
+    {
         return $this->getDoctrine()
             ->getManager()
-            ->getRepository('KFICMSBundle:Category')
+            ->getRepository($this->container->getParameter('kfi_cms.class.category'))
             ->findOneBy(array('slug' => $name));
+    }
+
+    private function forwardCMSAction($actionKey, $data)
+    {
+        return $this->forward(
+            $this->getActionKey($actionKey),
+            $data
+        );
+    }
+
+    private function getActionKey($actionKey)
+    {
+        return $this->container->getParameter('kfi_cms.action.' . $actionKey);
+    }
+
+    private function getSplittedSlug($slug)
+    {
+        $x = explode('/', trim($slug, '/'));
+        return array_pop($x);
+    }
+
+    private function maybeRedirect(WebPage $page, $currentUrl)
+    {
+        $pageUrl = $this->generateUrl(
+            $page->getRouteName(),
+            $page->getRouteParameters()
+        );
+        return ($pageUrl != $currentUrl) ?
+            $this->redirect($pageUrl)
+            : null;
     }
 }

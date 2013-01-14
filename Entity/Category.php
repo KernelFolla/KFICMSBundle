@@ -50,13 +50,13 @@ class Category implements WebPage
     private $parent;
 
     /**
-     * @var Collection
+     * @var Collection|PostCategory[]
      * @ORM\OneToMany(targetEntity="PostCategory",
      *      mappedBy="category",
      *      cascade={"persist"}, orphanRemoval=true, fetch="EXTRA_LAZY")
      * @ORM\OrderBy({"categoryPosition" = "ASC"})
      */
-    private $posts;
+    private $categoryPosts;
 
     /**
      * @ORM\Column(type="integer")
@@ -68,7 +68,8 @@ class Category implements WebPage
      */
     private $count = 0;
 
-    public function __toString(){
+    public function __toString()
+    {
         return $this->getTitle();
     }
 
@@ -79,7 +80,12 @@ class Category implements WebPage
 
     public function getRouteParameters()
     {
-        return array('slug' => $this->getSlug());
+        $slug = '';
+        $p    = $this;
+        do {
+            $slug = $p->getSlug() . '/' . $slug;
+        } while ($p = $p->getParent());
+        return array('slug' => $slug);
     }
 
     /**
@@ -87,14 +93,14 @@ class Category implements WebPage
      */
     public function __construct()
     {
-        $this->posts = new ArrayCollection();
+        $this->categoryPosts    = new ArrayCollection();
         $this->children = new ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -110,14 +116,14 @@ class Category implements WebPage
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -133,14 +139,14 @@ class Category implements WebPage
     public function setSlug($slug)
     {
         $this->slug = $slug;
-    
+
         return $this;
     }
 
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -156,14 +162,14 @@ class Category implements WebPage
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
-    
+
         return $this;
     }
 
     /**
      * Get enabled
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEnabled()
     {
@@ -179,7 +185,7 @@ class Category implements WebPage
     public function addChildren(Category $children)
     {
         $this->children[] = $children;
-    
+
         return $this;
     }
 
@@ -212,7 +218,7 @@ class Category implements WebPage
     public function setParent(Category $parent = null)
     {
         $this->parent = $parent;
-    
+
         return $this;
     }
 
@@ -235,14 +241,14 @@ class Category implements WebPage
     public function setPosition($position)
     {
         $this->position = $position;
-    
+
         return $this;
     }
 
     /**
      * Get position
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosition()
     {
@@ -250,50 +256,56 @@ class Category implements WebPage
     }
 
     /**
-     * Add posts
+     * Add category posts
      *
      * @param PostCategory $post
      * @return Category
      */
-    public function addPost(PostCategory $post)
+    public function addCategoryPost(PostCategory $post)
     {
-        $this->posts->add($post);
+        $this->categoryPosts->add($post);
         $post->setCategory($this);
         return $this;
     }
 
     /**
-     * Remove posts
+     * Remove category post
      *
-     * @param PostCategory $posts
+     * @param PostCategory $post
      */
-    public function removePost(PostCategory $posts)
+    public function removePost(PostCategory $post)
     {
-        $this->posts->removeElement($posts);
+        $this->categoryPosts->removeElement($post);
     }
 
     /**
-     * Get posts
+     * Get category posts
      *
      * @return PostCategory[]|Collection
      */
-    public function getPosts()
+    public function getCategoryPosts()
     {
-        return $this->posts;
+        return $this->categoryPosts;
+    }
+
+    public function getPosts(){
+        $ret = new ArrayCollection();
+        foreach($this->categoryPosts as $item)
+            $ret->add($item->getPost());
+        return $ret;
     }
 
     /**
      * @return Category[]
      */
-    public function getBreadCrumbs(){
+    public function getBreadCrumbs()
+    {
         $ret = array($this);
-        $p = $this;
-        while($p = $p->getParent())
+        $p   = $this;
+        while ($p = $p->getParent())
             $ret[] = $p;
         return array_reverse($ret);
     }
-
-
 
     /**
      * Set count
@@ -304,14 +316,14 @@ class Category implements WebPage
     public function setCount($count)
     {
         $this->count = $count;
-    
+
         return $this;
     }
 
     /**
      * Get count
      *
-     * @return integer 
+     * @return integer
      */
     public function getCount()
     {
@@ -322,7 +334,8 @@ class Category implements WebPage
     /**
      * @ORM\PrePersist
      */
-    public function prePersist() {
-        $count = $this->getPosts()->count();
+    public function prePersist()
+    {
+        $count = $this->getCategoryPosts()->count();
     }
 }

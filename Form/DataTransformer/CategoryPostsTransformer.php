@@ -28,7 +28,7 @@ class CategoryPostsTransformer extends JunctionTableTransformer
         $ret = new PostCategory();
         $ret->setPostPosition($item->getCategories()->count());
         $ret->setCategory($item);
-        $item->addCategory($ret);
+        $item->addPostCategory($ret);
         $ret->setPostPosition($pos);
         return $ret;
     }

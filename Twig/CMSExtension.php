@@ -21,7 +21,9 @@ class CMSExtension extends Extension
     {
         return array(
             'kfi_cms_category' => new Method($this, 'getCategory'),
-            'kfi_cms_post' => new Method($this, 'getPost')
+            'kfi_cms_categories' => new Method($this, 'getCategories'),
+            'kfi_cms_post' => new Method($this, 'getPost'),
+            'kfi_cms_posts' => new Method($this, 'getPosts')
         );
     }
 
@@ -49,5 +51,27 @@ class CMSExtension extends Extension
         else
             throw new \Exception('not implemented');
     }
+
+    public function getCategories($args){
+        $r = $this->categoryRepo;
+        if(is_int($args))
+            return $r->find($args);
+        if(is_string($args))
+            return $r->findOneBy(array('slug' => $args));
+        else
+            throw new \Exception('not implemented');
+    }
+
+    public function getPosts($args){
+        $r = $this->postRepo;
+        if(is_int($args))
+            return $r->find($args);
+        if(is_string($args))
+            return $r->findOneBy(array('slug' => $args));
+        else
+            throw new \Exception('not implemented');
+    }
+
+
 
 }

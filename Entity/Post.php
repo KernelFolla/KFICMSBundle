@@ -91,7 +91,7 @@ class Post implements WebPage
     private $image;
 
     /**
-     * @var Collection
+     * @var Collection|PostCategory[]
      * @ORM\OneToMany(targetEntity="PostCategory",
      *      mappedBy="post",
      *      cascade={"persist"},
@@ -99,7 +99,7 @@ class Post implements WebPage
      * )
      * @ORM\OrderBy({"postPosition" = "ASC"})
      */
-    private $categories;
+    private $postCategories;
 
     /**
      * @var Collection
@@ -223,7 +223,7 @@ class Post implements WebPage
      */
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
+        $this->postCategories = new ArrayCollection();
     }
     
     /**
@@ -376,12 +376,17 @@ class Post implements WebPage
 
     public function getRouteName()
     {
-        return 'kfi_cms.post';
+        return $this->getCategory() ? 'kfi_cms.category' : 'kfi_cms.post';
     }
 
     public function getRouteParameters()
     {
-        return array('slug' => $this->getSlug());
+        $slug = $this->getSlug();
+        if($cat = $this->getCategory()){
+            $r = $cat->getRouteParameters();
+            $slug = $r['slug'].$slug;
+        }
+        return array('slug' => $slug);
     }
 
     public function __toString(){
@@ -412,37 +417,37 @@ class Post implements WebPage
     }
 
     /**
-     * Add categories
+     * Add post categories
      *
      * @param PostCategory $category
      * @return Post
      */
-    public function addCategory(PostCategory $category)
+    public function addPostCategory(PostCategory $category)
     {
-        $this->categories->add($category);
+        $this->postCategories->add($category);
         $category->setPost($this);
 
         return $this;
     }
 
     /**
-     * Remove categories
+     * Remove post categories
      *
-     * @param PostCategory $categories
+     * @param PostCategory $postCategory
      */
-    public function removeCategory(PostCategory $categories)
+    public function removePostCategory(PostCategory $postCategory)
     {
-        $this->categories->removeElement($categories);
+        $this->postCategories->removeElement($postCategory);
     }
 
     /**
-     * Get categories
+     * Get post categories
      *
      * @return Collection
      */
-    public function getCategories()
+    public function getPostCategories()
     {
-        return $this->categories;
+        return $this->postCategories;
     }
 
     /**
@@ -515,16 +520,25 @@ class Post implements WebPage
      * @return Category
      */
     public function getCategory(){
-        $c = $this->getCategories();
-        return $this->getCategories()->isEmpty() ? null
+        $c = $this->getPostCategories();
+        return $this->getPostCategories()->isEmpty() ? null
             : $c->offsetGet(0)->getCategory();
     }
 
+
+
+    public function getCategories(){
+        $ret = new ArrayCollection();
+        foreach($this->postCategories as $item)
+            $ret->add($item->getCategory());
+        return $ret;
+    }
+
+
     public function getBreadcrumbs(){
-        if($cat = $this->getCategory())
-            $ret = $this->getCategory()->getBreadCrumbs();
-        else
-            $ret = array();
+        $ret = ($cat = $this->getCategory()) ?
+            $cat->getBreadCrumbs() :
+            array();
         $ret[] = $this;
         return $ret;
     }
