@@ -288,6 +288,9 @@ class Category implements WebPage
         return $this->categoryPosts;
     }
 
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection|Post[]
+     */
     public function getPosts(){
         $ret = new ArrayCollection();
         foreach($this->categoryPosts as $item)

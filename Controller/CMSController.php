@@ -6,7 +6,7 @@ use KFI\CmsBundle\Interfaces\WebPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class CMSController extends Controller
+class CmsController extends Controller
 {
 
     /**

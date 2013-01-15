@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('compa_compa');
+        $rootNode = $treeBuilder->root('kfi_cms');
 
         $rootNode
             ->children()

@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class KFICMSExtension extends Extension
+class KFICmsExtension extends Extension
 {
     /**
      * {@inheritDoc}
@@ -27,8 +27,8 @@ class KFICMSExtension extends Extension
                 $container->setParameter(sprintf('kfi_cms.%s.%s', $groupKey, $key), $value);
             }
         }
-//
-//        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-//        $loader->load('services.yml');
+
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('services.yml');
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace KFI\CMSBundle;
+namespace KFI\CmsBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class KFICMSBundle extends Bundle
+class KFICmsBundle extends Bundle
 {
 
 }

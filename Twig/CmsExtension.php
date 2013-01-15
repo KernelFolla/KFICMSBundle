@@ -6,7 +6,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use \Twig_Function_Method as Method;
 use \Twig_Extension as Extension;
 
-class CMSExtension extends Extension
+class CmsExtension extends Extension
 {
     protected $categoryRepo;
     protected $postRepo;
