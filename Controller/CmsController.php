@@ -4,18 +4,10 @@ namespace KFI\CmsBundle\Controller;
 
 use KFI\CmsBundle\Interfaces\WebPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class CmsController extends Controller
 {
 
-    /**
-     * @Route(
-     *    "/{slug}",
-     *    requirements={"slug" = "^[a-z0-9\-\/]+$"},
-     *    name="kfi_cms.direct"
-     * )
-     */
     public function directAction($slug)
     {
         $splitted = $this->getSplittedSlug($slug);

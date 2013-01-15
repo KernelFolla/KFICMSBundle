@@ -1,0 +1,5 @@
+kfi_cms.direct:
+    pattern: /{slug}
+    requirements:
+        slug: "^[a-z0-9\-\/]+$"
+    defaults:  { _controller: KFICmsBundle:Cms:direct }
