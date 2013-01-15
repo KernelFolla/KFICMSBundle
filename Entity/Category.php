@@ -75,7 +75,7 @@ class Category implements WebPage
 
     public function getRouteName()
     {
-        return 'kfi_cms.category';
+        return 'kfi_cms.direct';
     }
 
     public function getRouteParameters()

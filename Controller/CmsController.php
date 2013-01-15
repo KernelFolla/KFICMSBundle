@@ -11,29 +11,12 @@ class CmsController extends Controller
 
     /**
      * @Route(
-     *    "/p-{slug}/",
+     *    "/{slug}",
      *    requirements={"slug" = "^[a-z0-9\-\/]+$"},
-     *    name="kfi_cms.post"
+     *    name="kfi_cms.direct"
      * )
      */
-    public function postAction($slug)
-    {
-        $post = $this->getPostByName($slug);
-        if (!isset($post)) {
-            throw $this->createNotFoundException();
-        }
-
-        return $this->forwardCMSAction('post', compact('post'));
-    }
-
-    /**
-     * @Route(
-     *    "/c-{slug}",
-     *    requirements={"slug" = "^[a-z0-9\-\/]+$"},
-     *    name="kfi_cms.category"
-     * )
-     */
-    public function categoryAction($slug)
+    public function directAction($slug)
     {
         $splitted = $this->getSplittedSlug($slug);
         $post     = $this->getPostByName($splitted);

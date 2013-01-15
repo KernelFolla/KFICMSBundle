@@ -376,7 +376,7 @@ class Post implements WebPage
 
     public function getRouteName()
     {
-        return $this->getCategory() ? 'kfi_cms.category' : 'kfi_cms.post';
+        return 'kfi_cms.direct';
     }
 
     public function getRouteParameters()
