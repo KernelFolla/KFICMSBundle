@@ -1,0 +1,5 @@
+admin_kfi_cms_post_autocomplete:
+    pattern: /admin/kfi/cms/post/autocomplete
+    requirements:
+        _method:  GET
+    defaults:  { _controller: KFICmsBundle:Admin/Post:autocomplete }

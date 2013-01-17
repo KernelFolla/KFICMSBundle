@@ -24,7 +24,7 @@ services:
               label: Post
               label_catalogue: admin
               label_translator_strategy: sonata.admin.label.strategy.underscore
-        arguments: [null, '%kfi_cms.class.post%', KFICmsBundle:PostAdmin]
+        arguments: [null, '%kfi_cms.class.post%', KFICmsBundle:Admin/Post]
         calls: [ [ setTranslationDomain, [ KFICmsBundle ] ] ]
     kfi_cms.admin.category:
         class: KFI\CmsBundle\Admin\CategoryAdmin

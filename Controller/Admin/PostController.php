@@ -1,13 +1,11 @@
 <?php
 
-namespace KFI\CmsBundle\Controller;
+namespace KFI\CmsBundle\Controller\Admin;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use KFI\CmsBundle\Controller\Model\WebPageAdminController;
 use KFI\CmsBundle\Entity\Post;
 
-class PostAdminController extends WebPageAdminController
+class PostController extends WebPageAdminController
 {
     const ADMIN_SERVICE_NAME = 'kfi_cms.admin.post';
     const AUTOCOMPLETE_MAX_RESULTS = 10;
@@ -20,13 +18,6 @@ class PostAdminController extends WebPageAdminController
         parent::configure();
     }
 
-    /**
-     * @Route(
-     *    "/admin/kfi/cms/post/autocomplete",
-     *    name="admin_kfi_cms_post_autocomplete"
-     * )
-     * @Method({"GET"})
-     */
     public function autocompleteAction()
     {
         $req = $this->getRequest()->query;
