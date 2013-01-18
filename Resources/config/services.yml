@@ -1,6 +1,12 @@
 services:
+    # MANAGERS
+    kfi_cms.webpage_manager:
+        class: KFI\CmsBundle\Service\WebPageManager
+        arguments: ["@router"]
+
+    # TWIG
     kfi_cms.twig.webpageextension:
-        arguments: [@router]
+        arguments: [@kfi_cms.webpage_manager]
         class: KFI\CmsBundle\Twig\WebPageExtension
         tags:
             - { name: twig.extension }
@@ -9,11 +15,11 @@ services:
             - @doctrine.orm.entity_manager
             - '%kfi_cms.class.post%'
             - '%kfi_cms.class.category%'
-
         class: KFI\CmsBundle\Twig\CmsExtension
         tags:
             - { name: twig.extension }
 
+    # ADMIN
     kfi_cms.admin.post:
         class: KFI\CmsBundle\Admin\PostAdmin
         tags:

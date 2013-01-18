@@ -34,6 +34,7 @@ form:
     label_category:                 Categoria
     label_category_posts:           Contenuti
     label_posts:                    Contenuti
+    label_published_at:             Data di pubblicazione
 filter:
     label_title:                    Titolo
     label_createdAt:                Data Creazione

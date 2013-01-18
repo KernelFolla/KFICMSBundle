@@ -69,9 +69,9 @@ class PostAdmin extends Base
         $listMapper
             ->add('image', null, $templates['image'])
             ->addIdentifier('title')
-//            ->add('categories.category')
-            ->add('createdAt') //, null, $templates['datetime'])
-            ->add('updatedAt')//, null, $templates['datetime'])
+            ->add('categories')
+            ->add('createdAt', null, $templates['datetime'])
+            ->add('updatedAt', null, $templates['datetime'])
             ->add(
             '_action',
             'actions',

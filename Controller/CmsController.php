@@ -3,6 +3,7 @@
 namespace KFI\CmsBundle\Controller;
 
 use KFI\CmsBundle\Interfaces\WebPage;
+use KFI\CmsBundle\Service\WebPageManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class CmsController extends Controller
@@ -10,15 +11,26 @@ class CmsController extends Controller
 
     public function directAction($slug)
     {
-        $splitted = $this->getSplittedSlug($slug);
-        $post     = $this->getPostByName($splitted);
+        /** @var $wpManager WebPageManager */
+        $wpManager = $this->get('kfi_cms.webpage_manager');
+        $splitted  = $this->getSplittedSlug($slug);
+        $post      = $this->getPostByName($splitted);
+
         if (isset($post)) {
-            $this->maybeRedirect($post, $slug);
+            if ($ret = $this->mayRedirect($post, $slug)) {
+                return $ret;
+            }
+            $this->mayRedirect($post, $slug);
+            $wpManager->setCurrent($post);
             return $this->forwardCMSAction('post', compact('post'));
         }
+
         $category = $this->getCategoryByName($splitted);
         if (isset($category)) {
-            $this->maybeRedirect($category, $slug);
+            if ($ret = $this->mayRedirect($category, $slug)) {
+                return $ret;
+            }
+            $wpManager->setCurrent($category);
             return $this->forwardCMSAction('category', compact('category'));
         }
 
@@ -60,7 +72,7 @@ class CmsController extends Controller
         return array_pop($x);
     }
 
-    private function maybeRedirect(WebPage $page, $currentUrl)
+    private function mayRedirect(WebPage $page, $currentUrl)
     {
         $pageUrl = $this->generateUrl(
             $page->getRouteName(),
