@@ -14,11 +14,12 @@ class CmsController extends Controller
         /** @var $wpManager WebPageManager */
         $wpManager = $this->get('kfi_cms.webpage_manager');
         $splitted  = $this->getSplittedSlug($slug);
+        $pathInfo  = $this->getRequest()->getPathInfo();
         $post      = $this->getPostByName($splitted);
 
         if (isset($post)) {
-            if ($ret = $this->mayRedirect($post, $slug)) {
-                return $ret;
+            if ($ret = $this->mayRedirect($post, $pathInfo)) {
+                return $this->redirect($ret);
             }
             $this->mayRedirect($post, $slug);
             $wpManager->setCurrent($post);
@@ -27,8 +28,8 @@ class CmsController extends Controller
 
         $category = $this->getCategoryByName($splitted);
         if (isset($category)) {
-            if ($ret = $this->mayRedirect($category, $slug)) {
-                return $ret;
+            if ($ret = $this->mayRedirect($category, $pathInfo)) {
+                return $this->redirect($ret);
             }
             $wpManager->setCurrent($category);
             return $this->forwardCMSAction('category', compact('category'));
@@ -78,8 +79,6 @@ class CmsController extends Controller
             $page->getRouteName(),
             $page->getRouteParameters()
         );
-        return ($pageUrl != $currentUrl) ?
-            $this->redirect($pageUrl)
-            : null;
+        return ($pageUrl != $currentUrl) ? $pageUrl : null;
     }
 }
