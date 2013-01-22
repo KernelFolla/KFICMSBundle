@@ -6,6 +6,14 @@
     {{ _self.link_base(webpage | wp_path, webpage.title, add_anchor) }}
 {% endmacro %}
 
+{% macro editpost_link(post) %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('admin_kfi_cms_post_edit', {'id': post.id}) }}" class="btn btn-mini">
+            <i class="icon-pencil"></i>
+        </a>
+    {% endif %}
+{% endmacro %}
+
 {% macro breadcrumbs(pages, home) %}
     <nav id="breadcrumbs">
         <ul class="breadcrumb">
