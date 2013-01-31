@@ -1,0 +1,10 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% for category in value %}
+        <a href="{{ path( 'admin_kfi_ecommerce_category_edit', { 'id' : category.id } ) }}">
+            {{ category.title }}
+        </a>
+        {{ loop.last ? '' : ', ' }}
+    {% endfor %}
+{% endblock %}

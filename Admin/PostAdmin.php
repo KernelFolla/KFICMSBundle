@@ -14,25 +14,25 @@ class PostAdmin extends Base
 
         if (!$this->hasRequest()) {
             $this->datagridValues['_sort_order'] = 'DESC';
-            $this->datagridValue['_sort_by'] = 'updatedAt';
+            $this->datagridValue['_sort_by']     = 'updatedAt';
         }
     }
 
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $imageSettings    = array(
+        $imageSettings      = array(
             'type'          => 'image',
             'add_to_editor' => true,
-            'mode'        => 'single',
-            'required'  => false
+            'mode'          => 'single',
+            'required'      => false
         );
-        $attachmentSettings    = array(
+        $attachmentSettings = array(
             'prototype'     => 'KFI\CmsBundle\Entity\PostAttachment',
             'type'          => 'all',
             'add_to_editor' => true,
-            'required'  => false
+            'required'      => false
         );
-        $contentSettings   = array(
+        $contentSettings    = array(
             'attr' => array(
                 'class'      => 'tinymce',
                 'data-theme' => 'medium'
@@ -45,7 +45,7 @@ class PostAdmin extends Base
             ->add('attachments', 'kfi_upload', $attachmentSettings)
             ->add('excerpt')
             ->add('image', 'kfi_upload', $imageSettings)
-            ->add('postCategories','kfi_cms_postcategories')
+            ->add('postCategories', 'kfi_cms_postcategories')
             ->add('publishedAt', null, array('required' => false));
     }
 
@@ -59,14 +59,15 @@ class PostAdmin extends Base
     protected function configureListFields(ListMapper $listMapper)
     {
         $templates = array(
-            'image'    => array('template' => 'KFIUploadBundle:Admin:list_upload.html.twig'),
-            'datetime' => array('template' => 'KFIFrameworkBundle:Admin:list_datetime.html.twig')
+            'image'      => array('template' => 'KFIUploadBundle:Admin:list_upload.html.twig'),
+            'datetime'   => array('template' => 'KFIFrameworkBundle:Admin:list_datetime.html.twig'),
+            'categories' => array('template' => 'KFICmsBundle:Admin:list_categories.html.twig')
         );
 
         $listMapper
             ->add('image', null, $templates['image'])
             ->addIdentifier('title')
-            ->add('categories')
+            ->add('categories', $templates['categories'])
             ->add('createdAt', null, $templates['datetime'])
             ->add('updatedAt', null, $templates['datetime'])
             ->add(
