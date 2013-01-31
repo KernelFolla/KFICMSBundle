@@ -273,7 +273,7 @@ class Category implements WebPage
      *
      * @param PostCategory $post
      */
-    public function removePost(PostCategory $post)
+    public function removeCategoryPost(PostCategory $post)
     {
         $this->categoryPosts->removeElement($post);
     }
