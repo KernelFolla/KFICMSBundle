@@ -13,11 +13,8 @@ class PostAdmin extends Base
         parent::__construct($code, $class, $baseControllerName);
 
         if (!$this->hasRequest()) {
-            $this->datagridValues = array(
-                '_page'       => 1,
-                '_sort_order' => 'DESC', // sort direction
-                '_sort_by'    => 'updatedAt' // field name
-            );
+            $this->datagridValues['_sort_order'] = 'DESC';
+            $this->datagridValue['_sort_by'] = 'updatedAt';
         }
     }
 

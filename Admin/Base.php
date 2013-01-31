@@ -11,7 +11,6 @@ class Base extends Admin
         return array('KFICmsBundle:Admin:fields.html.twig');
     }
 
-
     public function getTemplate($name)
     {
         switch ($name) {
