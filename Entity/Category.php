@@ -88,7 +88,9 @@ class Category implements WebPage
         $slug = '';
         $p    = $this;
         do {
-            $slug = $p->getSlug() . '/' . $slug;
+            if(!$p->isHidden()){
+                $slug = $p->getSlug() . '/' . $slug;
+            }
         } while ($p = $p->getParent());
         return array('slug' => $slug);
     }
@@ -196,9 +198,9 @@ class Category implements WebPage
 
 
     /**
-     * Get enabled
+     * Get hidden
      *
-     * @return boolean
+     * @return boolean true if category is hidden
      */
     public function isHidden()
     {
@@ -329,15 +331,15 @@ class Category implements WebPage
     }
 
     /**
-     * @param bool $hidden don't return the hidden categories
+     * @param bool $hideHidden don't return the hidden categories
      * @return array
      */
-    public function getBreadCrumbs($hidden = true)
+    public function getBreadCrumbs($hideHidden = true)
     {
         $ret = array();
         $p   = $this;
         do {
-            if ($hidden && !$p->isHidden()) {
+            if ($hideHidden && !$p->isHidden()) {
                 $ret[] = $p;
             }
         } while ($p = $p->getParent());
