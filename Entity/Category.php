@@ -86,12 +86,9 @@ class Category implements WebPage
     public function getRouteParameters()
     {
         $slug = '';
-        $p    = $this;
-        do {
-            if(!$p->isHidden()){
-                $slug = $p->getSlug() . '/' . $slug;
-            }
-        } while ($p = $p->getParent());
+        foreach($this->getBreadCrumbs() as $cat){
+            $slug = $cat->getSlug() . '/' . $slug;
+        }
         return array('slug' => $slug);
     }
 
@@ -332,7 +329,7 @@ class Category implements WebPage
 
     /**
      * @param bool $hideHidden don't return the hidden categories
-     * @return array
+     * @return Category[]
      */
     public function getBreadCrumbs($hideHidden = true)
     {
