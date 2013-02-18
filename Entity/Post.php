@@ -535,9 +535,13 @@ class Post implements WebPage
     }
 
 
-    public function getBreadcrumbs(){
+    /**
+     * @param bool $hidden don't return the hidden categories
+     * @return array
+     */
+    public function getBreadcrumbs($hidden = true){
         $ret = ($cat = $this->getCategory()) ?
-            $cat->getBreadCrumbs() :
+            $cat->getBreadCrumbs($hidden) :
             array();
         $ret[] = $this;
         return $ret;

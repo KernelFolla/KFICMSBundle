@@ -10,9 +10,9 @@ class CategoryAdmin extends Base
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-
         $formMapper
             ->add('enabled', 'checkbox', array('required' => false))
+            ->add('hidden', 'checkbox', array('required' => false))
             ->add('title')
             ->add('parent')
             ->add('categoryPosts', 'kfi_cms_categoryposts')
@@ -23,7 +23,8 @@ class CategoryAdmin extends Base
     {
         $datagridMapper
             ->add('title')
-            ->add('enabled');
+            ->add('enabled')
+            ->add('hidden');
     }
 
     protected function configureListFields(ListMapper $listMapper)

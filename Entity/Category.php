@@ -28,6 +28,11 @@ class Category implements WebPage
     private $enabled;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hidden;
+
+    /**
      * @ORM\Column(name="title", type="string", length=64)
      */
     private $title;
@@ -93,8 +98,8 @@ class Category implements WebPage
      */
     public function __construct()
     {
-        $this->categoryPosts    = new ArrayCollection();
-        $this->children = new ArrayCollection();
+        $this->categoryPosts = new ArrayCollection();
+        $this->children      = new ArrayCollection();
     }
 
     /**
@@ -171,9 +176,33 @@ class Category implements WebPage
      *
      * @return boolean
      */
-    public function getEnabled()
+    public function isEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * Set hidden
+     *
+     * @param boolean $hidden
+     * @return Category
+     */
+    public function setHidden($hidden)
+    {
+        $this->hidden = $hidden;
+
+        return $this;
+    }
+
+
+    /**
+     * Get enabled
+     *
+     * @return boolean
+     */
+    public function isHidden()
+    {
+        return $this->hidden;
     }
 
     /**
@@ -291,22 +320,28 @@ class Category implements WebPage
     /**
      * @return \Doctrine\Common\Collections\ArrayCollection|Post[]
      */
-    public function getPosts(){
+    public function getPosts()
+    {
         $ret = new ArrayCollection();
-        foreach($this->categoryPosts as $item)
+        foreach ($this->categoryPosts as $item)
             $ret->add($item->getPost());
         return $ret;
     }
 
     /**
-     * @return Category[]
+     * @param bool $hidden don't return the hidden categories
+     * @return array
      */
-    public function getBreadCrumbs()
+    public function getBreadCrumbs($hidden = true)
     {
-        $ret = array($this);
+        $ret = array();
         $p   = $this;
-        while ($p = $p->getParent())
-            $ret[] = $p;
+        do {
+            if ($hidden && !$p->isHidden()) {
+                $ret[] = $p;
+            }
+        } while ($p = $p->getParent());
+
         return array_reverse($ret);
     }
 
