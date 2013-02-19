@@ -141,7 +141,7 @@ class Post implements WebPage
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -157,14 +157,14 @@ class Post implements WebPage
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -180,14 +180,14 @@ class Post implements WebPage
     public function setExcerpt($excerpt)
     {
         $this->excerpt = $excerpt;
-    
+
         return $this;
     }
 
     /**
      * Get excerpt
      *
-     * @return string 
+     * @return string
      */
     public function getExcerpt()
     {
@@ -203,14 +203,14 @@ class Post implements WebPage
     public function setContent($content)
     {
         $this->content = $content;
-    
+
         return $this;
     }
 
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {
@@ -225,7 +225,7 @@ class Post implements WebPage
     {
         $this->postCategories = new ArrayCollection();
     }
-    
+
     /**
      * Set enabled
      *
@@ -235,14 +235,14 @@ class Post implements WebPage
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
-    
+
         return $this;
     }
 
     /**
      * Get enabled
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEnabled()
     {
@@ -258,14 +258,14 @@ class Post implements WebPage
     public function setSlug($slug)
     {
         $this->slug = $slug;
-    
+
         return $this;
     }
 
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -281,14 +281,14 @@ class Post implements WebPage
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -304,14 +304,14 @@ class Post implements WebPage
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-    
+
         return $this;
     }
 
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -327,14 +327,14 @@ class Post implements WebPage
     public function setDeletedAt($deletedAt)
     {
         $this->deletedAt = $deletedAt;
-    
+
         return $this;
     }
 
     /**
      * Get deletedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDeletedAt()
     {
@@ -350,7 +350,7 @@ class Post implements WebPage
     public function addAttachment(PostAttachment $attachments)
     {
         $attachments->pushOnCollection($this, $this->attachments);
-    
+
         return $this;
     }
 
@@ -382,14 +382,15 @@ class Post implements WebPage
     public function getRouteParameters()
     {
         $slug = $this->getSlug();
-        if($cat = $this->getCategory()){
-            $r = $cat->getRouteParameters();
-            $slug = $r['slug'].$slug;
+        if ($cat = $this->getCategory()) {
+            $r    = $cat->getRouteParameters();
+            $slug = $r['slug'] . $slug . '/';
         }
         return array('slug' => $slug);
     }
 
-    public function __toString(){
+    public function __toString()
+    {
         return $this->getTitle();
     }
 
@@ -402,7 +403,7 @@ class Post implements WebPage
     public function setImage(Upload $image = null)
     {
         $this->image = $image;
-    
+
         return $this;
     }
 
@@ -459,7 +460,7 @@ class Post implements WebPage
     public function addTag(Category $tags)
     {
         $this->tags[] = $tags;
-    
+
         return $this;
     }
 
@@ -493,14 +494,14 @@ class Post implements WebPage
     public function setPublishedAt($publishedAt)
     {
         $this->publishedAt = $publishedAt;
-    
+
         return $this;
     }
 
     /**
      * Get publishedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getPublishedAt()
     {
@@ -512,24 +513,25 @@ class Post implements WebPage
      */
     public function prePersist()
     {
-        if($this->getPublishedAt() == null && $this->getEnabled())
+        if ($this->getPublishedAt() == null && $this->getEnabled())
             $this->setPublishedAt(new \DateTime());
     }
 
     /**
      * @return Category
      */
-    public function getCategory(){
+    public function getCategory()
+    {
         $c = $this->getPostCategories();
         return $this->getPostCategories()->isEmpty() ? null
             : $c->offsetGet(0)->getCategory();
     }
 
 
-
-    public function getCategories(){
+    public function getCategories()
+    {
         $ret = new ArrayCollection();
-        foreach($this->postCategories as $item)
+        foreach ($this->postCategories as $item)
             $ret->add($item->getCategory());
         return $ret;
     }
@@ -539,8 +541,9 @@ class Post implements WebPage
      * @param bool $hideHidden don't return the hidden categories
      * @return array
      */
-    public function getBreadcrumbs($hideHidden = true){
-        $ret = ($cat = $this->getCategory()) ?
+    public function getBreadcrumbs($hideHidden = true)
+    {
+        $ret   = ($cat = $this->getCategory()) ?
             $cat->getBreadCrumbs($hideHidden) :
             array();
         $ret[] = $this;

@@ -87,7 +87,7 @@ class Category implements WebPage
     {
         $slug = '';
         foreach ($this->getBreadCrumbs() as $cat) {
-            $slug = $slug . '/' . $cat->getSlug();
+            $slug = $slug . $cat->getSlug() . '/';
         }
         return array('slug' => $slug);
     }
