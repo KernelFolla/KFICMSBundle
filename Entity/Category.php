@@ -86,8 +86,8 @@ class Category implements WebPage
     public function getRouteParameters()
     {
         $slug = '';
-        foreach($this->getBreadCrumbs() as $cat){
-            $slug = $cat->getSlug() . '/' . $slug;
+        foreach ($this->getBreadCrumbs() as $cat) {
+            $slug = $slug . '/' . $cat->getSlug();
         }
         return array('slug' => $slug);
     }
