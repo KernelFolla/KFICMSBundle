@@ -322,8 +322,10 @@ class Category implements WebPage
     public function getPosts()
     {
         $ret = new ArrayCollection();
-        foreach ($this->categoryPosts as $item)
-            $ret->add($item->getPost());
+        foreach ($this->categoryPosts as $item){
+            if($post = $item->getPost())
+               $ret->add($post);
+        }
         return $ret;
     }
 
@@ -374,5 +376,25 @@ class Category implements WebPage
     public function prePersist()
     {
         $count = $this->getCategoryPosts()->count();
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean 
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Get hidden
+     *
+     * @return boolean 
+     */
+    public function getHidden()
+    {
+        return $this->hidden;
     }
 }

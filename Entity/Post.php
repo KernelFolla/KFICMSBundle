@@ -139,6 +139,17 @@ class Post implements WebPage
     private $deletedAt;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="children")
+     */
+    private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $children;
+
+    /**
      * Get id
      *
      * @return integer
@@ -224,6 +235,7 @@ class Post implements WebPage
     public function __construct()
     {
         $this->postCategories = new ArrayCollection();
+        $this->children      = new ArrayCollection();
     }
 
     /**
@@ -548,5 +560,84 @@ class Post implements WebPage
             array();
         $ret[] = $this;
         return $ret;
+    }
+
+    /**
+     * Add postCategories
+     *
+     * @param \KFI\CmsBundle\Entity\PostCategory $postCategories
+     * @return Post
+     */
+    public function addPostCategorie(\KFI\CmsBundle\Entity\PostCategory $postCategories)
+    {
+        $this->postCategories[] = $postCategories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove postCategories
+     *
+     * @param \KFI\CmsBundle\Entity\PostCategory $postCategories
+     */
+    public function removePostCategorie(\KFI\CmsBundle\Entity\PostCategory $postCategories)
+    {
+        $this->postCategories->removeElement($postCategories);
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \KFI\CmsBundle\Entity\Post $parent
+     * @return Post
+     */
+    public function setParent(\KFI\CmsBundle\Entity\Post $parent = null)
+    {
+        $this->parent = $parent;
+    
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \KFI\CmsBundle\Entity\Post 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \KFI\CmsBundle\Entity\Category $children
+     * @return Post
+     */
+    public function addChildren(\KFI\CmsBundle\Entity\Category $children)
+    {
+        $this->children[] = $children;
+    
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \KFI\CmsBundle\Entity\Category $children
+     */
+    public function removeChildren(\KFI\CmsBundle\Entity\Category $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }
