@@ -527,6 +527,10 @@ class Post implements WebPage
     {
         if ($this->getPublishedAt() == null && $this->getEnabled())
             $this->setPublishedAt(new \DateTime());
+        if($this->getDeletedAt())
+            foreach($this->getPostCategories() as $c){
+                $this->removePostCategory($c);
+            }
     }
 
     /**

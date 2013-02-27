@@ -230,7 +230,7 @@ class Category implements WebPage
     /**
      * Get children
      *
-     * @return Collection
+     * @return Collection|Category[]
      */
     public function getChildren()
     {
@@ -322,9 +322,8 @@ class Category implements WebPage
     public function getPosts()
     {
         $ret = new ArrayCollection();
-        foreach ($this->categoryPosts as $item){
-            if($post = $item->getPost())
-               $ret->add($post);
+        foreach ($this->getCategoryPosts() as $item) {
+            $ret->add($item->getPost());
         }
         return $ret;
     }
@@ -375,13 +374,13 @@ class Category implements WebPage
      */
     public function prePersist()
     {
-        $count = $this->getCategoryPosts()->count();
+        $this->setCount($this->getCategoryPosts()->count());
     }
 
     /**
      * Get enabled
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEnabled()
     {
@@ -391,7 +390,7 @@ class Category implements WebPage
     /**
      * Get hidden
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getHidden()
     {
