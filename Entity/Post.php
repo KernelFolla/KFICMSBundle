@@ -35,7 +35,7 @@ class Post implements WebPage
     /**
      * @ORM\Column(type="boolean")
      */
-    private $enabled;
+    private $enabled = true;
 
     /**
      * @var string
